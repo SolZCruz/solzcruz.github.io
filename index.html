@@ -84,6 +84,53 @@
   </div>
 </section>
 
+    <!-- PARTE 3: Mi perfil (la estrella) -->
+  <section class="perfil" id="estrella">
+    <div class="perfil-inner">
+      <h2 class="perfil-title">Mi perfil</h2>
+      <div class="perfil-grid">
+        <div class="star-view" id="starView">
+          <span class="orbe o1" aria-hidden="true"></span>
+          <span class="orbe o2" aria-hidden="true"></span>
+          <span class="orbe o3" aria-hidden="true"></span>
+          <div class="star-zoom">
+            <div class="star-glass"></div>
+            <svg class="star-edge" viewBox="0 0 100 100" aria-hidden="true">
+              <defs>
+                <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#fff" stop-opacity=".95"/>
+                  <stop offset=".5" stop-color="#fff" stop-opacity=".15"/>
+                  <stop offset="1" stop-color="#669BBC" stop-opacity=".9"/>
+                </linearGradient>
+              </defs>
+              <path d="M47.88 18.29 Q50.00 14.00 52.12 18.29 L58.46 31.15 Q60.58 35.44 65.31 36.13 L79.51 38.19 Q84.24 38.88 80.81 42.21 L70.54 52.22 Q67.12 55.56 67.93 60.27 L70.35 74.41 Q71.16 79.12 66.93 76.90 L54.23 70.22 Q50.00 68.00 45.77 70.22 L33.07 76.90 Q28.84 79.12 29.65 74.41 L32.07 60.27 Q32.88 55.56 29.46 52.22 L19.19 42.21 Q15.76 38.88 20.49 38.19 L34.69 36.13 Q39.42 35.44 41.54 31.15 Z" fill="none" stroke="url(#edge)" stroke-width=".7"/>
+            </svg>
+            <span class="star-core" aria-hidden="true"></span>
+            <button class="tip" data-skill="0" tabindex="-1" aria-hidden="true" style="left:50.0%;top:6.0%">SQL</button>
+            <button class="tip" data-skill="1" tabindex="-1" aria-hidden="true" style="left:91.8%;top:36.4%">Python</button>
+            <button class="tip" data-skill="2" tabindex="-1" aria-hidden="true" style="left:75.9%;top:85.6%">R</button>
+            <button class="tip" data-skill="3" tabindex="-1" aria-hidden="true" style="left:24.1%;top:85.6%">Econometría</button>
+            <button class="tip" data-skill="4" tabindex="-1" aria-hidden="true" style="left:8.2%;top:36.4%">Git</button>
+          </div>
+        </div>
+
+        <div class="skill-card glass">
+          <h3 id="skillTitle">Economista en formación</h3>
+          <p id="skillText" aria-live="polite">Convierto datos en decisiones. Elige un punto de la estrella para ver cada habilidad de cerca.</p>
+          <div class="chips" role="group" aria-label="Habilidades">
+            <button class="chip" data-skill="0" aria-pressed="false">SQL</button>
+            <button class="chip" data-skill="1" aria-pressed="false">Python</button>
+            <button class="chip" data-skill="2" aria-pressed="false">R</button>
+            <button class="chip" data-skill="3" aria-pressed="false">Econometría</button>
+            <button class="chip" data-skill="4" aria-pressed="false">Git</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+      <clipPath id="starClip" clipPathUnits="objectBoundingBox"><path transform="scale(.01)" d="M47.88 18.29 Q50.00 14.00 52.12 18.29 L58.46 31.15 Q60.58 35.44 65.31 36.13 L79.51 38.19 Q84.24 38.88 80.81 42.21 L70.54 52.22 Q67.12 55.56 67.93 60.27 L70.35 74.41 Q71.16 79.12 66.93 76.90 L54.23 70.22 Q50.00 68.00 45.77 70.22 L33.07 76.90 Q28.84 79.12 29.65 74.41 L32.07 60.27 Q32.88 55.56 29.46 52.22 L19.19 42.21 Q15.76 38.88 20.49 38.19 L34.69 36.13 Q39.42 35.44 41.54 31.15 Z"/></clipPath>
+    </svg>
+  </section>
 
   <!-- Las siguientes secciones se agregan aquí: #sobre-mi, #habilidades, #contacto -->
 
