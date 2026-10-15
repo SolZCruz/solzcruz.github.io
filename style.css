@@ -493,11 +493,10 @@ button {
   z-index: -1;
 
   background-image: url("./foto.jpeg");
-  background-size: cover;
-  background-position: center center;
+  background-size: auto 60%;
+  background-position: left center;
   background-repeat: no-repeat;
 }
-
 
 /* Desactiva la capa antigua */
 
