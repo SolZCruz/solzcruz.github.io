@@ -139,28 +139,41 @@ a, button { font: inherit; color: inherit; }
 
 
 /* ---------- Sobre mí ---------- */
+
 .about {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  min-height: 680px;
-  padding: clamp(4rem, 8vw, 7rem) clamp(1.2rem, 6vw, 6rem);
+  box-sizing: border-box;
+
+  min-height: 100vh;
+  min-height: 100svh;
+
+  padding: clamp(2rem, 5vw, 5rem)
+           clamp(1.2rem, 6vw, 6rem);
+
   display: flex;
   align-items: center;
+
   background: var(--noche);
   color: var(--crema);
 }
 
-/* Foto como fondo */
+/* Fondo de la sección */
 .about-background {
   position: absolute;
   inset: 0;
-  z-index: -2;
+  z-index: -1;
 
   background-image: url("./foto.jpeg");
-  background-size: cover;
-  background-position: 25% center;
+  background-size: auto 80%;
+  background-position: left center;
   background-repeat: no-repeat;
+}
+
+/* Eliminar la capa azul */
+.about-overlay {
+  display: none;
 }
 
 /* Integra la foto con el fondo y los colores */
