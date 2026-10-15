@@ -1,175 +1,492 @@
+
+/* ==================================================
+   1. VARIABLES Y CONFIGURACIÓN GENERAL
+================================================== */
+
 :root {
   --vino: #780000;
   --rojo: #C1121F;
   --crema: #FDF0D5;
   --noche: #003049;
   --cielo: #669BBC;
+
   --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --texto: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --padding-x: clamp(1.2rem, 6vw, 6rem);
 }
 
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
+  min-width: 320px;
   background: var(--noche);
   color: var(--crema);
   font-family: var(--texto);
 }
-a, button { font: inherit; color: inherit; }
-:focus-visible { outline: 2px solid var(--crema); outline-offset: 4px; }
 
-/* ---------- Barra superior e índice ---------- */
+img {
+  max-width: 100%;
+}
+
+a,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--crema);
+  outline-offset: 4px;
+}
+
+
+/* ==================================================
+   2. BARRA SUPERIOR Y MENÚ
+================================================== */
+
 .topbar {
-  position: fixed; inset: 0 0 auto 0; z-index: 10;
-  display: flex; justify-content: space-between; align-items: flex-start;
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 10;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
   padding: clamp(1rem, 3vw, 2rem);
 }
-.site-name { margin: .6rem 0 0; font-size: .95rem; opacity: .8; }
-.menu { position: relative; }
-.menu-btn, .menu-panel {
-  background: rgba(253, 240, 213, .12);
-  border: 1px solid rgba(253, 240, 213, .3);
-  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+
+.site-name {
+  margin: 0.6rem 0 0;
+  font-size: 0.95rem;
+  opacity: 0.8;
 }
-.menu-btn {
-  padding: .6rem 1.4rem; border-radius: 999px; cursor: pointer;
-  transition: background .3s;
+
+.menu {
+  position: relative;
 }
-.menu-btn:hover { background: rgba(253, 240, 213, .22); }
+
+.menu-btn,
 .menu-panel {
-  position: absolute; right: 0; top: calc(100% + .6rem);
-  display: flex; flex-direction: column; gap: .2rem;
-  min-width: 14rem; padding: .6rem; border-radius: 20px;
+  background: rgba(253, 240, 213, 0.12);
+  border: 1px solid rgba(253, 240, 213, 0.3);
+
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
-.menu-panel[hidden] { display: none; }
-.menu-panel a { padding: .7rem 1rem; border-radius: 12px; text-decoration: none; }
-.menu-panel a:hover { background: rgba(253, 240, 213, .16); }
 
-/* ---------- Inicio ---------- */
-.hero { position: relative; min-height: 100svh; overflow: hidden; background: var(--noche); }
+.menu-btn {
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 
-.field { position: absolute; inset: 0; --mx: 0; --my: 0; }
+.menu-btn:hover {
+  background: rgba(253, 240, 213, 0.22);
+}
+
+.menu-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.6rem);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  min-width: 14rem;
+  padding: 0.6rem;
+  border-radius: 20px;
+}
+
+.menu-panel[hidden] {
+  display: none;
+}
+
+.menu-panel a {
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+.menu-panel a:hover {
+  background: rgba(253, 240, 213, 0.16);
+}
+
+
+/* ==================================================
+   3. INICIO: FONDO ANIMADO
+================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--noche);
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+
+  --mx: 0;
+  --my: 0;
+}
+
 .blob {
-  position: absolute; border-radius: 50%; filter: blur(80px);
-  translate: calc(var(--mx) * var(--k)) calc(var(--my) * var(--k));
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+
+  translate:
+    calc(var(--mx) * var(--k))
+    calc(var(--my) * var(--k));
+
   animation: drift 24s ease-in-out infinite alternate;
 }
-.b1 { --k: 160px; width: 55vmax; height: 55vmax; left: -15vmax; bottom: -22vmax; background: var(--rojo); opacity: .85; }
-.b2 { --k: -120px; width: 45vmax; height: 45vmax; right: -12vmax; top: -16vmax; background: var(--cielo); opacity: .75; animation-duration: 30s; }
-.b3 { --k: 80px; width: 38vmax; height: 38vmax; left: 38%; top: 40%; background: var(--vino); opacity: .9; animation-duration: 20s; }
-.b4 { --k: -200px; width: 22vmax; height: 22vmax; left: 8%; top: 6%; background: var(--crema); opacity: .35; animation-duration: 27s; }
-@keyframes drift {
-  from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(6vmax, -5vmax) scale(1.18); }
+
+.b1 {
+  --k: 160px;
+
+  width: 55vmax;
+  height: 55vmax;
+  left: -15vmax;
+  bottom: -22vmax;
+
+  background: var(--rojo);
+  opacity: 0.85;
 }
 
+.b2 {
+  --k: -120px;
+
+  width: 45vmax;
+  height: 45vmax;
+  right: -12vmax;
+  top: -16vmax;
+
+  background: var(--cielo);
+  opacity: 0.75;
+  animation-duration: 30s;
+}
+
+.b3 {
+  --k: 80px;
+
+  width: 38vmax;
+  height: 38vmax;
+  left: 38%;
+  top: 40%;
+
+  background: var(--vino);
+  opacity: 0.9;
+  animation-duration: 20s;
+}
+
+.b4 {
+  --k: -200px;
+
+  width: 22vmax;
+  height: 22vmax;
+  left: 8%;
+  top: 6%;
+
+  background: var(--crema);
+  opacity: 0.35;
+  animation-duration: 27s;
+}
+
+@keyframes drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(6vmax, -5vmax) scale(1.18);
+  }
+}
+
+
+/* Textura granulada */
+
 .grain {
-  position: absolute; inset: 0; pointer-events: none; opacity: .22; mix-blend-mode: overlay;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Esfera: es el botón que revela tu información */
+
+/* ==================================================
+   4. INICIO: ESFERA INTERACTIVA
+================================================== */
+
 .stage {
   --d: min(24vmin, 200px);
-  position: absolute; left: 50%; top: 78%;
-  width: var(--d); aspect-ratio: 1;
+
+  position: absolute;
+  left: 50%;
+  top: 78%;
+
+  width: var(--d);
+  aspect-ratio: 1;
+
   transform: translate(-50%, -50%);
   container-type: inline-size;
-  transition: width 1s cubic-bezier(.2, .8, .2, 1), top 1s cubic-bezier(.2, .8, .2, 1);
+
+  transition:
+    width 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+    top 1s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.hero.is-open .stage { --d: min(84vmin, 720px); top: 50%; }
- 
+
+.hero.is-open .stage {
+  --d: min(84vmin, 720px);
+  top: 50%;
+}
+
 .orb {
-  position: absolute; inset: 0; padding: 0; border: 0; border-radius: 50%;
-  background: none; cursor: pointer;
+  position: absolute;
+  inset: 0;
+
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+
+  background: none;
+  cursor: pointer;
 }
+
 .orb-core {
-  position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+  border-radius: 50%;
+
   background:
-    radial-gradient(circle at 50% 4%, color-mix(in srgb, var(--cielo) 55%, white), transparent 55%),
-    radial-gradient(circle at 100% 55%, color-mix(in srgb, var(--rojo) 65%, var(--crema)), transparent 48%),
-    radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--rojo) 50%, var(--crema)), transparent 60%),
-    linear-gradient(180deg, color-mix(in srgb, var(--cielo) 60%, white) 0%, color-mix(in srgb, var(--cielo) 35%, var(--crema)) 45%, color-mix(in srgb, var(--rojo) 40%, var(--crema)) 100%);
-  box-shadow: inset -.04em 0 .5em rgba(253, 240, 213, .45);
+    radial-gradient(
+      circle at 50% 4%,
+      color-mix(in srgb, var(--cielo) 55%, white),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 100% 55%,
+      color-mix(in srgb, var(--rojo) 65%, var(--crema)),
+      transparent 48%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      color-mix(in srgb, var(--rojo) 50%, var(--crema)),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--cielo) 60%, white) 0%,
+      color-mix(in srgb, var(--cielo) 35%, var(--crema)) 45%,
+      color-mix(in srgb, var(--rojo) 40%, var(--crema)) 100%
+    );
+
+  box-shadow: inset -0.04em 0 0.5em rgba(253, 240, 213, 0.45);
 }
+
 .orb-core::before {
-  content: ""; position: absolute; inset: -30%; opacity: .55;
-  background: conic-gradient(from 0deg, transparent, color-mix(in srgb, var(--rojo) 50%, var(--crema)), transparent 40%, color-mix(in srgb, var(--cielo) 60%, white), transparent 80%);
+  content: "";
+
+  position: absolute;
+  inset: -30%;
+
+  opacity: 0.55;
+
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    color-mix(in srgb, var(--rojo) 50%, var(--crema)),
+    transparent 40%,
+    color-mix(in srgb, var(--cielo) 60%, white),
+    transparent 80%
+  );
+
   filter: blur(22px);
   animation: spin 22s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
- 
-/* Aro de luz alrededor de la esfera */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Aro luminoso */
+
 .orb-ring {
-  position: absolute; inset: -9%; border-radius: 50%; pointer-events: none;
-  background: conic-gradient(from 0deg, rgba(253, 240, 213, 0), var(--crema), rgba(253, 240, 213, 0) 35%, var(--cielo), rgba(253, 240, 213, 0) 70%, var(--crema), rgba(253, 240, 213, 0));
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
-          mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
-  filter: drop-shadow(0 0 6px rgba(253, 240, 213, .85));
+  position: absolute;
+  inset: -9%;
+
+  border-radius: 50%;
+  pointer-events: none;
+
+  background: conic-gradient(
+    from 0deg,
+    rgba(253, 240, 213, 0),
+    var(--crema),
+    rgba(253, 240, 213, 0) 35%,
+    var(--cielo),
+    rgba(253, 240, 213, 0) 70%,
+    var(--crema),
+    rgba(253, 240, 213, 0)
+  );
+
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 3px),
+    #000 calc(100% - 2px)
+  );
+
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 3px),
+    #000 calc(100% - 2px)
+  );
+
+  filter: drop-shadow(0 0 6px rgba(253, 240, 213, 0.85));
   animation: spin 14s linear infinite;
 }
- 
+
+
+/* Texto de la esfera */
+
 .orb-label {
-  position: absolute; inset: 0; display: grid; place-items: center;
-  color: var(--noche); font-family: var(--display); font-weight: 800;
-  font-size: 9cqw; transition: opacity .4s;
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--noche);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 9cqw;
+
+  transition: opacity 0.4s;
 }
-.hero.is-open .orb-label { opacity: 0; }
- 
-/* Información sobre la esfera */
+
+.hero.is-open .orb-label {
+  opacity: 0;
+}
+
 .orb-info {
-  position: absolute; inset: 0; display: grid; align-content: center; justify-items: center;
-  gap: 2cqw; padding: 0 16cqw; text-align: center; color: var(--noche); pointer-events: none;
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 2cqw;
+
+  padding: 0 16cqw;
+  text-align: center;
+
+  color: var(--noche);
+  pointer-events: none;
 }
-.orb-info > * { margin: 0; opacity: 0; filter: blur(8px); transform: translateY(12px); transition: opacity .8s, filter .8s, transform .8s; }
-.hero.is-open .orb-info > * { opacity: 1; filter: none; transform: none; }
-.hero.is-open .orb-info > :nth-child(1) { transition-delay: .45s; }
-.hero.is-open .orb-info > :nth-child(2) { transition-delay: .6s; }
-.hero.is-open .orb-info > :nth-child(3) { transition-delay: .75s; }
-.orb-info h1 { font-family: var(--display); font-weight: 800; font-size: 11cqw; line-height: .95; letter-spacing: -.03em; }
-.role { font-family: var(--display); font-weight: 500; font-size: 4.6cqw; }
-.stack { font-size: 3.2cqw; line-height: 1.4; max-width: 30ch; }
- 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+
+.orb-info > * {
+  margin: 0;
+
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(12px);
+
+  transition:
+    opacity 0.8s,
+    filter 0.8s,
+    transform 0.8s;
+}
+
+.hero.is-open .orb-info > * {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+.hero.is-open .orb-info > :nth-child(1) {
+  transition-delay: 0.45s;
+}
+
+.hero.is-open .orb-info > :nth-child(2) {
+  transition-delay: 0.6s;
+}
+
+.hero.is-open .orb-info > :nth-child(3) {
+  transition-delay: 0.75s;
+}
+
+.orb-info h1 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 11cqw;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.role {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 4.6cqw;
+}
+
+.stack {
+  max-width: 30ch;
+  font-size: 3.2cqw;
+  line-height: 1.4;
 }
 
 
-/* ---------- Sobre mí ---------- */
+/* ==================================================
+   5. SOBRE MÍ: FOTO COMO FONDO COMPLETO
+================================================== */
 
 .about {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  box-sizing: border-box;
-
-  min-height: 100vh;
-  min-height: 100svh;
-
-  padding: clamp(2rem, 5vw, 5rem)
-           clamp(1.2rem, 6vw, 6rem);
 
   display: flex;
   align-items: center;
 
-  background:
-  radial-gradient(
-    ellipse at 18% 45%,
-    rgba(102, 155, 188, 0.18),
-    transparent 45%
-  ),
-  radial-gradient(
-    ellipse at 15% 90%,
-    rgba(193, 18, 31, 0.16),
-    transparent 38%
-  ),
-  var(--noche);
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  padding:
+    clamp(5rem, 8vh, 7rem)
+    var(--padding-x);
+
+  background: var(--noche);
+  color: var(--crema);
 }
 
-/* Fondo de la sección */
+
+/* Fotografía panorámica.
+   Sin filtros ni capas de color por encima. */
+
 .about-background {
   position: absolute;
   inset: 0;
@@ -181,143 +498,229 @@ a, button { font: inherit; color: inherit; }
   background-repeat: no-repeat;
 }
 
-/* Integra la foto con el fondo y los colores */
-.about-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
 
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0, 48, 73, 0.05) 0%,
-      rgba(0, 48, 73, 0.15) 25%,
-      rgba(0, 48, 73, 0.75) 48%,
-      var(--noche) 72%
-    ),
-    linear-gradient(
-      0deg,
-      rgba(0, 48, 73, 0.7),
-      transparent 45%,
-      rgba(0, 48, 73, 0.15)
-    );
+/* Desactiva la capa antigua */
+
+.about-overlay {
+  display: none !important;
 }
+
+
+/* Contenedor general */
 
 .about-inner {
   position: relative;
+  z-index: 1;
+
   width: 100%;
-  max-width: 72rem;
+  max-width: 84rem;
   margin: 0 auto;
 }
 
+
+/* Proporción de las columnas:
+   izquierda para la foto, derecha para el texto */
+
 .about-grid {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-  gap: clamp(2rem, 6vw, 5rem);
+
+  grid-template-columns:
+    minmax(0, 0.9fr)
+    minmax(0, 1.1fr);
+
+  gap: clamp(1.5rem, 4vw, 4rem);
   align-items: center;
+
+  min-height: min(70svh, 48rem);
 }
 
-/* Espacio visual para que el texto no cubra la cara */
+
+/* Columna vacía: reserva el espacio visual de la foto */
+
 .about-spacer {
-  min-height: 400px;
+  min-width: 0;
 }
 
-/* Texto integrado con el fondo */
+
+/* Texto sin recuadro */
+
 .resume {
-  padding: clamp(1rem, 3vw, 2rem);
-  border: none;
+  width: 100%;
+  max-width: 44rem;
+
+  justify-self: end;
+
+  padding: clamp(0.5rem, 2vw, 1.5rem);
+
+  border: 0;
   border-radius: 0;
+
   background: transparent;
   box-shadow: none;
+
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
 
+
+/* Título */
+
 .about-title {
-  margin: 0 0 2rem;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+
   font-family: var(--display);
   font-weight: 800;
+
   line-height: 0.95;
   letter-spacing: -0.04em;
-  font-size: clamp(2.8rem, 6vw, 5.5rem);
+
+  font-size: clamp(2.8rem, 5.5vw, 5.5rem);
 }
 
+
+/* Descripción */
+
 .resume p {
-  margin: 0 0 1.8rem;
   max-width: 48ch;
-  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  margin: 0 0 1.8rem;
+
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
   line-height: 1.7;
 }
 
+
+/* Formación, herramientas e intereses */
+
 .resume dl {
-  margin: 0;
   display: grid;
   gap: 1rem;
+  margin: 0;
 }
 
 .resume dl > div {
   display: grid;
-  grid-template-columns: 8.5rem 1fr;
+
+  grid-template-columns: minmax(7rem, 0.65fr) minmax(0, 1.35fr);
   gap: 1rem;
+
   padding-top: 1rem;
+
   border-top: 1px solid rgba(253, 240, 213, 0.3);
 }
 
 .resume dt {
   font-family: var(--display);
   font-weight: 600;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .resume dd {
+  min-width: 0;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
-/* Adaptación para móviles */
+
+/* ==================================================
+   6. SOBRE MÍ: TABLETAS Y PANTALLAS PEQUEÑAS
+================================================== */
+
 @media (max-width: 800px) {
   .about {
-    min-height: auto;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    align-items: flex-start;
+
+    min-height: 100vh;
+    min-height: 100svh;
+
+    padding:
+      4rem
+      clamp(1.25rem, 5vw, 2.5rem)
+      3rem;
   }
 
   .about-background {
-    background-position: 30% top;
-  }
-
-  .about-overlay {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(0, 48, 73, 0.05) 0%,
-        rgba(0, 48, 73, 0.3) 20%,
-        rgba(0, 48, 73, 0.92) 48%,
-        var(--noche) 75%
-      );
+    /*
+      En móvil se muestra principalmente la zona izquierda
+      de la imagen para priorizar el rostro.
+    */
+    background-size: auto 55%;
+    background-position: 20% top;
   }
 
   .about-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0;
+
+    min-height: auto;
   }
 
   .about-spacer {
-    min-height: 350px;
+    min-height: clamp(16rem, 40svh, 22rem);
   }
 
   .resume {
-    padding: 1rem 0;
+    justify-self: stretch;
+    max-width: none;
+    padding: 1rem 0 0;
+  }
+
+  .about-title {
+    font-size: clamp(2.8rem, 9vw, 4.5rem);
+  }
+
+  .resume p {
+    max-width: 58ch;
   }
 }
 
+
+/* ==================================================
+   7. SOBRE MÍ: TELÉFONOS
+================================================== */
+
 @media (max-width: 520px) {
+  .about {
+    padding-top: 3.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .about-background {
+    background-size: auto 45%;
+    background-position: 18% top;
+  }
+
   .about-spacer {
-    min-height: 280px;
+    min-height: clamp(15rem, 34svh, 19rem);
+  }
+
+  .resume dl {
+    gap: 0.85rem;
   }
 
   .resume dl > div {
-    grid-template-columns: 1fr;
-    gap: 0.3rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem;
+  }
+
+  .resume dd {
+    font-size: 0.98rem;
+  }
+}
+
+
+/* ==================================================
+   8. ACCESIBILIDAD: REDUCIR ANIMACIONES
+================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
   }
 }
