@@ -176,24 +176,9 @@ a, button { font: inherit; color: inherit; }
   z-index: -1;
 
   background-image: url("./foto.jpeg");
-  background-size: auto 80%;
-  background-position: left center;
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
-
-  /* Fusión gradual de los bordes */
-  -webkit-mask-image: radial-gradient(
-    ellipse 44% 75% at 17% 50%,
-    #000 35%,
-    rgba(0, 0, 0, 0.85) 55%,
-    transparent 100%
-  );
-
-  mask-image: radial-gradient(
-    ellipse 44% 75% at 17% 50%,
-    #000 35%,
-    rgba(0, 0, 0, 0.85) 55%,
-    transparent 100%
-  );
 }
 
 /* Integra la foto con el fondo y los colores */
