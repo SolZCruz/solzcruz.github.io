@@ -68,7 +68,7 @@ let current = null;
 
 function selectSkill(i) {
   current = (i === current) ? null : i;
-  const s = 2.2;
+  const s = 2;
   if (current === null) {
     zoomEl.style.setProperty('--s', 1);
     zoomEl.style.setProperty('--tx', 0);
@@ -91,3 +91,18 @@ function selectSkill(i) {
 document.querySelectorAll('[data-skill]').forEach((el) =>
   el.addEventListener('click', () => selectSkill(Number(el.dataset.skill))));
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && current !== null) selectSkill(current); });
+
+// La estrella se inclina en 3D siguiendo el cursor
+const perfil = document.getElementById('estrella');
+const tilt = document.querySelector('.star-tilt');
+if (!reduceMotion) {
+  perfil.addEventListener('pointermove', (e) => {
+    const r = perfil.getBoundingClientRect();
+    tilt.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 28).toFixed(1) + 'deg');
+    tilt.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - 0.5) * 22).toFixed(1) + 'deg');
+  });
+  perfil.addEventListener('pointerleave', () => {
+    tilt.style.setProperty('--ry', '0deg');
+    tilt.style.setProperty('--rx', '0deg');
+  });
+}
