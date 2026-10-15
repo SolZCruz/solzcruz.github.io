@@ -97,78 +97,43 @@
     <div class="perfil-inner">
       <h2 class="perfil-title">Mi perfil</h2>
       <div class="perfil-grid">
-               <div class="star-view" id="starView">
+        <div class="star-view" id="starView">
           <div class="star-zoom">
-            <div class="star-tilt">
-              <div class="star-sway">
-                <svg class="star-shadow" viewBox="0 0 100 100" aria-hidden="true">
-                  <use href="#starPath" transform="translate(0 7)" fill="#780000" fill-opacity=".22" filter="url(#soft)"/>
-                </svg>
-                <div class="depth" style="--i:8"></div>
-                <div class="depth" style="--i:7"></div>
-                <div class="depth" style="--i:6"></div>
-                <div class="depth" style="--i:5"></div>
-                <div class="depth" style="--i:4"></div>
-                <div class="depth" style="--i:3"></div>
-                <div class="depth" style="--i:2"></div>
-                <div class="depth" style="--i:1"></div>
-                <div class="star-glass">
-                  <span class="lens l1"></span><span class="lens l2"></span><span class="lens l3"></span>
-                </div>
-                <svg class="star-3d" viewBox="0 0 100 100" aria-hidden="true">
-                  <defs>
-                    <path id="starPath" d="M47.88 18.29 Q50.00 14.00 52.12 18.29 L58.46 31.15 Q60.58 35.44 65.31 36.13 L79.51 38.19 Q84.24 38.88 80.81 42.21 L70.54 52.22 Q67.12 55.56 67.93 60.27 L70.35 74.41 Q71.16 79.12 66.93 76.90 L54.23 70.22 Q50.00 68.00 45.77 70.22 L33.07 76.90 Q28.84 79.12 29.65 74.41 L32.07 60.27 Q32.88 55.56 29.46 52.22 L19.19 42.21 Q15.76 38.88 20.49 38.19 L34.69 36.13 Q39.42 35.44 41.54 31.15 Z"/>
-                    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
-                    <filter id="bisel" x="-10%" y="-10%" width="120%" height="120%">
-                      <feGaussianBlur in="SourceAlpha" stdDeviation="1.8" result="b"/>
-                      <feSpecularLighting in="b" surfaceScale="5" specularConstant="1.2" specularExponent="24" lighting-color="#fff" result="spec">
-                        <fePointLight x="20" y="6" z="34"/>
-                      </feSpecularLighting>
-                      <feComposite in="spec" in2="SourceAlpha" operator="in" result="specIn"/>
-                      <feDiffuseLighting in="b" surfaceScale="5" diffuseConstant="1" lighting-color="#fff" result="diff">
-                        <feDistantLight azimuth="225" elevation="50"/>
-                      </feDiffuseLighting>
-                      <feColorMatrix in="diff" type="matrix" values="0 0 0 0 0  0 0 0 0 .19  0 0 0 0 .29  -2.4 0 0 0 1.85" result="shade"/>
-                      <feComposite in="shade" in2="SourceAlpha" operator="in" result="shadeIn"/>
-                      <feMerge><feMergeNode in="shadeIn"/><feMergeNode in="specIn"/></feMerge>
-                    </filter>
-                    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0" stop-color="#fff" stop-opacity=".85"/>
-                      <stop offset=".45" stop-color="#fff" stop-opacity="0"/>
-                      <stop offset="1" stop-color="#780000" stop-opacity=".4"/>
-                    </linearGradient>
-                  </defs>
-                  <use href="#starPath" fill="#fff" filter="url(#bisel)"/>
-                  <use href="#starPath" fill="none" stroke="url(#edge)" stroke-width=".35"/>
-                </svg>
-                <button class="tip" data-skill="0" tabindex="-1" aria-hidden="true" style="left:50.0%;top:6.0%">SQL</button>
-                <button class="tip" data-skill="1" tabindex="-1" aria-hidden="true" style="left:91.8%;top:36.4%">Python</button>
-                <button class="tip" data-skill="2" tabindex="-1" aria-hidden="true" style="left:75.9%;top:85.6%">R</button>
-                <button class="tip" data-skill="3" tabindex="-1" aria-hidden="true" style="left:24.1%;top:85.6%">Econometría</button>
-                <button class="tip" data-skill="4" tabindex="-1" aria-hidden="true" style="left:8.2%;top:36.4%">Git</button>
-              </div>
+            <div class="star-float">
+              <div class="star-glass" id="starGlass"></div>
+              <svg class="star-3d" viewBox="0 0 100 100" aria-hidden="true">
+                <defs>
+                  <path id="starPath" d="M47.88 18.29 Q50.00 14.00 52.12 18.29 L58.46 31.15 Q60.58 35.44 65.31 36.13 L79.51 38.19 Q84.24 38.88 80.81 42.21 L70.54 52.22 Q67.12 55.56 67.93 60.27 L70.35 74.41 Q71.16 79.12 66.93 76.90 L54.23 70.22 Q50.00 68.00 45.77 70.22 L33.07 76.90 Q28.84 79.12 29.65 74.41 L32.07 60.27 Q32.88 55.56 29.46 52.22 L19.19 42.21 Q15.76 38.88 20.49 38.19 L34.69 36.13 Q39.42 35.44 41.54 31.15 Z"/>
+                  <filter id="bisel" x="-10%" y="-10%" width="120%" height="120%">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="1.8" result="b"/>
+                    <feSpecularLighting in="b" surfaceScale="5" specularConstant="1.2" specularExponent="24" lighting-color="#fff" result="spec">
+                      <fePointLight x="20" y="6" z="34"/>
+                    </feSpecularLighting>
+                    <feComposite in="spec" in2="SourceAlpha" operator="in" result="specIn"/>
+                    <feDiffuseLighting in="b" surfaceScale="5" diffuseConstant="1" lighting-color="#fff" result="diff">
+                      <feDistantLight azimuth="225" elevation="50"/>
+                    </feDiffuseLighting>
+                    <feColorMatrix in="diff" type="matrix" values="0 0 0 0 0  0 0 0 0 .19  0 0 0 0 .29  -2.2 0 0 0 1.7" result="shade"/>
+                    <feComposite in="shade" in2="SourceAlpha" operator="in" result="shadeIn"/>
+                    <feMerge><feMergeNode in="shadeIn"/><feMergeNode in="specIn"/></feMerge>
+                  </filter>
+                  <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#fff" stop-opacity=".9"/>
+                    <stop offset=".45" stop-color="#fff" stop-opacity="0"/>
+                    <stop offset="1" stop-color="#fff" stop-opacity=".45"/>
+                  </linearGradient>
+                </defs>
+                <use href="#starPath" fill="#fff" filter="url(#bisel)"/>
+                <use href="#starPath" fill="none" stroke="url(#edge)" stroke-width=".4"/>
+              </svg>
+              <button class="tip" data-skill="0" tabindex="-1" aria-hidden="true" style="left:50.0%;top:6.0%">SQL</button>
+              <button class="tip" data-skill="1" tabindex="-1" aria-hidden="true" style="left:91.8%;top:36.4%">Python</button>
+              <button class="tip" data-skill="2" tabindex="-1" aria-hidden="true" style="left:75.9%;top:85.6%">R</button>
+              <button class="tip" data-skill="3" tabindex="-1" aria-hidden="true" style="left:24.1%;top:85.6%">Econometría</button>
+              <button class="tip" data-skill="4" tabindex="-1" aria-hidden="true" style="left:8.2%;top:36.4%">Git</button>
             </div>
           </div>
         </div>
-
-        <div class="skill-card glass">
-          <h3 id="skillTitle">Economista en formación</h3>
-          <p id="skillText" aria-live="polite">Convierto datos en decisiones. Elige un punto de la estrella para ver cada habilidad de cerca.</p>
-          <div class="chips" role="group" aria-label="Habilidades">
-            <button class="chip" data-skill="0" aria-pressed="false">SQL</button>
-            <button class="chip" data-skill="1" aria-pressed="false">Python</button>
-            <button class="chip" data-skill="2" aria-pressed="false">R</button>
-            <button class="chip" data-skill="3" aria-pressed="false">Econometría</button>
-            <button class="chip" data-skill="4" aria-pressed="false">Git</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <svg width="0" height="0" aria-hidden="true" style="position:absolute">
-      <clipPath id="starClip" clipPathUnits="objectBoundingBox"><path transform="scale(.01)" d="M47.88 18.29 Q50.00 14.00 52.12 18.29 L58.46 31.15 Q60.58 35.44 65.31 36.13 L79.51 38.19 Q84.24 38.88 80.81 42.21 L70.54 52.22 Q67.12 55.56 67.93 60.27 L70.35 74.41 Q71.16 79.12 66.93 76.90 L54.23 70.22 Q50.00 68.00 45.77 70.22 L33.07 76.90 Q28.84 79.12 29.65 74.41 L32.07 60.27 Q32.88 55.56 29.46 52.22 L19.19 42.21 Q15.76 38.88 20.49 38.19 L34.69 36.13 Q39.42 35.44 41.54 31.15 Z"/></clipPath>
-    </svg>
-  </section>
-
   <!-- Las siguientes secciones se agregan aquí: #sobre-mi, #habilidades, #contacto -->
 
 <script src="./script.js"></script>
