@@ -40,3 +40,14 @@ if (!reduceMotion) {
     requestAnimationFrame(loop);
   })();
 }
+
+// ---------- Sobre mí: la esfera de la foto aparece al llegar a la sección ----------
+const about = document.getElementById('sobre-mi');
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { about.classList.add('is-visible'); io.disconnect(); }
+  }, { threshold: 0.15 });
+  io.observe(about);
+} else {
+  about.classList.add('is-visible');
+}
