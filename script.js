@@ -196,5 +196,5 @@ const roundedSdf = (r) => (x, y, w, h) => {
   return -(Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) + Math.min(Math.max(qx, qy), 0) - r);
 };
 
-liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.11, scale: 80, res: 160 });
-liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 28, scale: 46, res: 220 });
+liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res: 160, blur: 1 });
+liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 34, scale: 70, res: 220, blur: 5 });
