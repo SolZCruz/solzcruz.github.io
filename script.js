@@ -198,11 +198,3 @@ const roundedSdf = (r) => (x, y, w, h) => {
 
 liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res: 160, blur: 1 });
 liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 34, scale: 70, res: 220, blur: 5 });
-
-const lightSections = new Set();
-const lightObserver = new IntersectionObserver((entries) => {
-  entries.forEach((e) => e.isIntersecting ? lightSections.add(e.target) : lightSections.delete(e.target));
-  document.body.classList.toggle('on-light', lightSections.size > 0);
-}, { rootMargin: '0px 0px -90% 0px' });
-lightObserver.observe(hero);
-lightObserver.observe(document.getElementById('estrella'));
