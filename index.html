@@ -1,33 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <link rel="stylesheet" href="style.css">
-
-    <title>Sol Cruz - Data Analytics Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portafolio de ciencia de datos</title>
+  <meta name="description" content="Portafolio de proyectos de ciencia de datos con SQL, Python y R.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Sol Cruz</h1>
 
-    <h2>Data Analytics Portfolio</h2>
+  <header class="topbar">
+    <p class="site-name">Portafolio de ciencia de datos</p>
+    <div class="menu">
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menuPanel">Índice</button>
+      <nav class="menu-panel" id="menuPanel" aria-label="Índice" hidden>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#habilidades">Habilidades y proyectos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
 
-    <p>Welcome to my portfolio.</p>
+  <!-- PARTE 1: Inicio -->
+  <section class="hero" id="inicio">
+    <div class="field" aria-hidden="true">
+      <span class="blob b1"></span>
+      <span class="blob b2"></span>
+      <span class="blob b3"></span>
+      <span class="blob b4"></span>
+    </div>
+    <div class="grain" aria-hidden="true"></div>
 
-    <h3>Projects</h3>
+    <div class="stage">
+      <button class="orb" id="orb" aria-expanded="false" aria-controls="orbInfo" aria-label="Mostrar mi información">
+        <span class="orb-glass" aria-hidden="true"></span>
+        <span class="orb-core" aria-hidden="true"></span>
+        <span class="orb-label" aria-hidden="true">Presiona</span>
+      </button>
+      <div class="orb-info" id="orbInfo">
+        <h1>Tu Nombre</h1>
+        <p class="role">Economista en formación</p>
+        <p class="stack">Datos, econometría y análisis con SQL, Python y R.</p>
+      </div>
+    </div>
 
-    <ul>
-        <li>SQL Sales Analysis</li>
-        <li>Customer Retention Dashboard</li>
-        <li>Python Data Analysis</li>
-    </ul>
+    <a class="scroll-hint" href="#sobre-mi">Deslizar</a>
+  </section>
 
-    <h3>Skills</h3>
+  <!-- Las siguientes secciones se agregan aquí: #sobre-mi, #habilidades, #contacto -->
 
-    <ul>
-        <li>SQL</li>
-        <li>PostgreSQL</li>
-        <li>Power BI</li>
-        <li>Python</li>
-    </ul>
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
