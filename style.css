@@ -161,8 +161,6 @@ a, button { font: inherit; color: inherit; }
   background-size: cover;
   background-position: 25% center;
   background-repeat: no-repeat;
-
-  transform: scale(1.02);
 }
 
 /* Integra la foto con el fondo y los colores */
