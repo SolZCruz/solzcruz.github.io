@@ -747,52 +747,36 @@ button {
 }
 .perfil-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 1rem; align-items: center; }
 
-/* Estrella 3D de vidrio con grosor, directamente sobre el fondo */
+/* Estrella de vidrio líquido, directamente sobre el fondo */
 .star-view { position: relative; width: 100%; aspect-ratio: 1; }
 .star-zoom {
   --s: 1; --tx: 0; --ty: 0;
-  position: absolute; inset: 0; perspective: 900px;
+  position: absolute; inset: 0;
   transform: translate(calc(var(--tx) * 1%), calc(var(--ty) * 1%)) scale(var(--s));
   transition: transform 1.1s cubic-bezier(.2, .8, .2, 1);
 }
-.star-tilt, .star-sway { position: absolute; inset: 0; transform-style: preserve-3d; }
-.star-tilt { transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .3s ease-out; }
-.star-sway { animation: sway 9s ease-in-out infinite alternate; }
-@keyframes sway {
-  from { transform: rotateY(-14deg) rotateX(7deg); }
-  to   { transform: rotateY(14deg) rotateX(-7deg); }
-}
-.star-shadow, .star-3d { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.star-shadow { transform: translateZ(-50px); }
-.star-3d { transform: translateZ(1px); }
+.star-float { position: absolute; inset: 0; animation: float 7s ease-in-out infinite alternate; }
+@keyframes float { from { transform: translateY(1.5%); } to { transform: translateY(-1.5%); } }
+.star-3d { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; opacity: .85; }
 
-/* Grosor: capas del mismo contorno apiladas hacia atrás */
-.depth {
-  position: absolute; inset: 0; clip-path: url(#starClip);
-  background: linear-gradient(135deg, rgba(102, 155, 188, .55), rgba(120, 0, 0, .6));
-  transform: translateZ(calc(var(--i) * -3px));
-}
-
-/* Cara frontal: vidrio con color por dentro (efecto de lente) */
+/* Cuerpo transparente: el script le añade la refracción (Chrome y Edge) */
 .star-glass {
-  position: absolute; inset: 0; clip-path: url(#starClip); overflow: hidden;
-  background: linear-gradient(135deg, rgba(255, 255, 255, .25), rgba(255, 255, 255, 0) 55%, rgba(0, 48, 73, .14));
-  -webkit-backdrop-filter: blur(3px) saturate(1.8) brightness(1.08); backdrop-filter: blur(3px) saturate(1.8) brightness(1.08);
+  --lx: 30%; --ly: 18%;
+  position: absolute; inset: 0; clip-path: url(#starClip);
+  background:
+    radial-gradient(circle at var(--lx) var(--ly), rgba(255, 255, 255, .35), transparent 38%),
+    linear-gradient(135deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .02) 55%, rgba(255, 255, 255, .08));
+  -webkit-backdrop-filter: blur(6px) saturate(1.6); backdrop-filter: blur(6px) saturate(1.6);
 }
-.lens { position: absolute; border-radius: 50%; filter: blur(18px); animation: lens 14s ease-in-out infinite alternate; }
-.l1 { width: 70%; height: 70%; right: -6%; bottom: -6%; background: var(--rojo); opacity: .8; }
-.l2 { width: 60%; height: 60%; left: -4%; top: -4%; background: var(--cielo); opacity: .85; animation-duration: 19s; }
-.l3 { width: 28%; height: 28%; left: 24%; top: 16%; background: #fff; opacity: .75; animation-duration: 11s; }
-@keyframes lens { to { transform: translate(12%, -10%) scale(1.15); } }
 
 .tip {
   position: absolute; translate: -50% -50%; padding: .35rem .8rem; border-radius: 999px; cursor: pointer;
   font-size: .85rem; color: var(--noche); border: 1px solid rgba(255, 255, 255, .8);
-  background: rgba(255, 255, 255, .45); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-  scale: calc(1 / var(--s)); transform: translateZ(40px);
+  background: rgba(255, 255, 255, .35); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  scale: calc(1 / var(--s));
   transition: background .3s, scale 1.1s cubic-bezier(.2, .8, .2, 1);
 }
-.tip:hover, .tip.on { background: rgba(255, 255, 255, .75); }
+.tip:hover, .tip.on { background: rgba(255, 255, 255, .7); }
 
 /* Tarjeta transparente, del mismo estilo que la estrella */
 .glass {
