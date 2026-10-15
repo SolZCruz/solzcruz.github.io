@@ -51,3 +51,43 @@ if ('IntersectionObserver' in window) {
 } else {
   about.classList.add('is-visible');
 }
+
+// ---------- Mi perfil: acercamiento a cada punto de la estrella ----------
+const skills = [
+  { n: 'SQL', t: 'Consultas, limpieza de datos e indicadores de negocio.' },
+  { n: 'Python', t: 'Análisis de datos con pandas y visualización de resultados.' },
+  { n: 'R', t: 'Modelos estadísticos y análisis econométrico.' },
+  { n: 'Econometría', t: 'Regresión, datos de panel y pruebas de hipótesis.' },
+  { n: 'Git', t: 'Control de versiones y proyectos publicados en GitHub.' },
+];
+const zoomEl = document.querySelector('.star-zoom');
+const skillTitle = document.getElementById('skillTitle');
+const skillText = document.getElementById('skillText');
+const defaults = { n: skillTitle.textContent, t: skillText.textContent };
+let current = null;
+
+function selectSkill(i) {
+  current = (i === current) ? null : i;
+  const s = 2.2;
+  if (current === null) {
+    zoomEl.style.setProperty('--s', 1);
+    zoomEl.style.setProperty('--tx', 0);
+    zoomEl.style.setProperty('--ty', 0);
+  } else {
+    const tip = zoomEl.querySelector(`.tip[data-skill="${current}"]`);
+    zoomEl.style.setProperty('--s', s);
+    zoomEl.style.setProperty('--tx', (-(parseFloat(tip.style.left) - 50) * s).toFixed(1));
+    zoomEl.style.setProperty('--ty', (-(parseFloat(tip.style.top) - 50) * s).toFixed(1));
+  }
+  const info = current === null ? defaults : { n: skills[current].n, t: skills[current].t };
+  skillTitle.textContent = info.n;
+  skillText.textContent = info.t;
+  document.querySelectorAll('[data-skill]').forEach((el) => {
+    const on = Number(el.dataset.skill) === current;
+    el.classList.toggle('on', on);
+    if (el.classList.contains('chip')) el.setAttribute('aria-pressed', on);
+  });
+}
+document.querySelectorAll('[data-skill]').forEach((el) =>
+  el.addEventListener('click', () => selectSkill(Number(el.dataset.skill))));
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && current !== null) selectSkill(current); });
