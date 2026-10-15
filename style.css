@@ -71,57 +71,53 @@ a, button { font: inherit; color: inherit; }
 
 /* Esfera: es el botón que revela tu información */
 .stage {
-  --d: min(36vmin, 300px);
-  position: absolute; left: 50%; top: 50%;
+  --d: min(24vmin, 200px);
+  position: absolute; left: 50%; top: 78%;
   width: var(--d); aspect-ratio: 1;
   transform: translate(-50%, -50%);
   container-type: inline-size;
-  transition: width 1s cubic-bezier(.2, .8, .2, 1);
+  transition: width 1s cubic-bezier(.2, .8, .2, 1), top 1s cubic-bezier(.2, .8, .2, 1);
 }
-.hero.is-open .stage { --d: min(84vmin, 720px); }
-
+.hero.is-open .stage { --d: min(84vmin, 720px); top: 50%; }
+ 
 .orb {
   position: absolute; inset: 0; padding: 0; border: 0; border-radius: 50%;
   background: none; cursor: pointer;
 }
 .orb-core {
   position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
-  box-shadow: 0 0 120px rgba(193, 18, 31, .55);
+  background:
+    radial-gradient(circle at 50% 4%, color-mix(in srgb, var(--cielo) 55%, white), transparent 55%),
+    radial-gradient(circle at 100% 55%, color-mix(in srgb, var(--rojo) 65%, var(--crema)), transparent 48%),
+    radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--rojo) 50%, var(--crema)), transparent 60%),
+    linear-gradient(180deg, color-mix(in srgb, var(--cielo) 60%, white) 0%, color-mix(in srgb, var(--cielo) 35%, var(--crema)) 45%, color-mix(in srgb, var(--rojo) 40%, var(--crema)) 100%);
+  box-shadow: inset -.04em 0 .5em rgba(253, 240, 213, .45);
 }
 .orb-core::before {
-  content: ""; position: absolute; inset: -30%;
-  background: conic-gradient(from 0deg, var(--rojo), var(--cielo), var(--vino), var(--crema), var(--rojo));
-  filter: blur(34px);
+  content: ""; position: absolute; inset: -30%; opacity: .55;
+  background: conic-gradient(from 0deg, transparent, color-mix(in srgb, var(--rojo) 50%, var(--crema)), transparent 40%, color-mix(in srgb, var(--cielo) 60%, white), transparent 80%);
+  filter: blur(22px);
   animation: spin 22s linear infinite;
 }
-.orb-core::after {
-  content: ""; position: absolute; inset: 0;
-  background: radial-gradient(circle, rgba(253, 240, 213, .96) 0 30%, rgba(253, 240, 213, 0) 68%);
-}
 @keyframes spin { to { transform: rotate(360deg); } }
-
-/* Aro de vidrio esmerilado, abierto a la derecha */
-.orb-glass {
-  position: absolute; inset: -6%; border-radius: 50%; pointer-events: none;
-  background: rgba(253, 240, 213, .2);
-  border: 1px solid rgba(253, 240, 213, .4);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  -webkit-mask: radial-gradient(circle at 60% 50%, transparent calc(var(--d) * .5), #000 calc(var(--d) * .5 + 1px));
-          mask: radial-gradient(circle at 60% 50%, transparent calc(var(--d) * .5), #000 calc(var(--d) * .5 + 1px));
-  transform: translateX(-9%);
-  transition: transform 1s cubic-bezier(.2, .8, .2, 1);
+ 
+/* Aro de luz alrededor de la esfera */
+.orb-ring {
+  position: absolute; inset: -9%; border-radius: 50%; pointer-events: none;
+  background: conic-gradient(from 0deg, rgba(253, 240, 213, 0), var(--crema), rgba(253, 240, 213, 0) 35%, var(--cielo), rgba(253, 240, 213, 0) 70%, var(--crema), rgba(253, 240, 213, 0));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  filter: drop-shadow(0 0 6px rgba(253, 240, 213, .85));
+  animation: spin 14s linear infinite;
 }
-.hero.is-open .orb-glass { transform: translateX(-12%) rotate(-24deg); }
-.orb:hover .orb-glass { transform: translateX(-12%); }
-.hero.is-open .orb:hover .orb-glass { transform: translateX(-12%) rotate(-24deg); }
-
+ 
 .orb-label {
   position: absolute; inset: 0; display: grid; place-items: center;
   color: var(--noche); font-family: var(--display); font-weight: 800;
-  font-size: 7cqw; transition: opacity .4s;
+  font-size: 9cqw; transition: opacity .4s;
 }
 .hero.is-open .orb-label { opacity: 0; }
-
+ 
 /* Información sobre la esfera */
 .orb-info {
   position: absolute; inset: 0; display: grid; align-content: center; justify-items: center;
@@ -135,19 +131,9 @@ a, button { font: inherit; color: inherit; }
 .orb-info h1 { font-family: var(--display); font-weight: 800; font-size: 11cqw; line-height: .95; letter-spacing: -.03em; }
 .role { font-family: var(--display); font-weight: 500; font-size: 4.6cqw; }
 .stack { font-size: 3.2cqw; line-height: 1.4; max-width: 30ch; }
-
-.scroll-hint {
-  position: absolute; left: 50%; bottom: 1.6rem; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: .6rem;
-  text-decoration: none; font-size: .9rem;
-}
-.scroll-hint::after {
-  content: ""; width: 1px; height: 44px; background: var(--crema); transform-origin: top;
-  animation: pulse 2.4s ease-in-out infinite;
-}
-@keyframes pulse { 0%, 100% { transform: scaleY(.25); opacity: .4; } 50% { transform: scaleY(1); opacity: 1; } }
-
+ 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
 }
+ 
