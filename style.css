@@ -158,21 +158,53 @@ button {
   animation: drift 24s ease-in-out infinite alternate;
 }
 
-.b1 { background: var(--rojo);  opacity: 0.5;  }
-.b2 { background: var(--cielo); opacity: 0.55; }
-.b3 { background: var(--vino);  opacity: 0.3;  }
-.b4 { background: #fff;         opacity: 0.8;  }
-
-@keyframes drift {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-
-  to {
-    transform: translate(6vmax, -5vmax) scale(1.18);
-  }
+.b1 {
+  --k: 160px;
+  width: 55vmax;
+  height: 55vmax;
+  left: -15vmax;
+  bottom: -22vmax;
+  background: var(--rojo);
+  opacity: 0.5;
 }
 
+.b2 {
+  --k: -120px;
+  width: 45vmax;
+  height: 45vmax;
+  right: -12vmax;
+  top: -16vmax;
+  background: var(--cielo);
+  opacity: 0.55;
+  animation-duration: 30s;
+}
+
+.b3 {
+  --k: 80px;
+  width: 38vmax;
+  height: 38vmax;
+  left: 38%;
+  top: 40%;
+  background: var(--vino);
+  opacity: 0.3;
+  animation-duration: 20s;
+}
+
+.b4 {
+  --k: -200px;
+  width: 22vmax;
+  height: 22vmax;
+  left: 8%;
+  top: 6%;
+  background: #fff;
+  opacity: 0.8;
+  animation-duration: 27s;
+}
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(6vmax, -5vmax) scale(1.18); }
+}
 
 /* Textura granulada */
 
@@ -774,7 +806,6 @@ button {
 
 .hero :focus-visible { outline-color: var(--noche); }
 
-/* Barra superior: texto oscuro sobre zonas crema */
 .topbar { transition: color .3s; }
 body.on-light .topbar { color: var(--noche); }
 body.on-light .menu-btn,
