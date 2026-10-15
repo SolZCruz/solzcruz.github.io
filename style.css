@@ -157,7 +157,7 @@ a, button { font: inherit; color: inherit; }
   inset: 0;
   z-index: -2;
 
-  background-image: url("./img/foto.jpg");
+  background-image: url("./foto.jpeg");
   background-size: cover;
   background-position: 25% center;
   background-repeat: no-repeat;
