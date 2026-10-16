@@ -279,26 +279,25 @@ button {
   overflow: hidden;
   border-radius: 50%;
 
-  /* Arriba azul, al centro violeta, abajo coral, con tus mismos colores */
+  /* Mismos colores, mezclados con más blanco */
   background:
     radial-gradient(
       circle at 50% 100%,
-      color-mix(in srgb, var(--rojo) 45%, var(--crema)),
+      color-mix(in srgb, var(--rojo) 35%, white),
       transparent 58%
     ),
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--cielo) 75%, white) 0%,
-      color-mix(in srgb, var(--cielo) 55%, var(--rojo)) 45%,
-      color-mix(in srgb, var(--rojo) 55%, var(--crema)) 100%
+      color-mix(in srgb, var(--cielo) 55%, white) 0%,
+      color-mix(in srgb, var(--cielo) 35%, white) 45%,
+      color-mix(in srgb, var(--rojo) 40%, white) 100%
     );
 
-  /* Borde claro interior y resplandor blanco exterior */
+  /* Borde interior y resplandor exterior blancos */
   box-shadow:
-    inset 0 0 6cqw 1cqw color-mix(in srgb, var(--cielo) 55%, white),
-    0 0 10cqw 3cqw rgba(253, 240, 213, 0.5);
+    inset 0 0 7cqw 2cqw rgba(255, 255, 255, 0.75),
+    0 0 14cqw 6cqw rgba(255, 255, 255, 0.8);
 
-  /* La suavidad: difumina los bordes */
   filter: blur(2.4cqw);
 }
 
