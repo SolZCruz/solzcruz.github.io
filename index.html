@@ -113,18 +113,18 @@
                     <feDiffuseLighting in="b" surfaceScale="5" diffuseConstant="1" lighting-color="#fff" result="diff">
                       <feDistantLight azimuth="225" elevation="50"/>
                     </feDiffuseLighting>
-                    <feColorMatrix in="diff" type="matrix" values="0 0 0 0 .85  0 0 0 0 .04  0 0 0 0 .08  -2.2 0 0 0 1.7" result="shade"/>
+                    <feColorMatrix in="diff" type="matrix" values="0 0 0 0 1  0 0 0 0 .04  0 0 0 0 .08  -2.2 0 0 0 1.7" result="shade"/>
                     <feComposite in="shade" in2="SourceAlpha" operator="in" result="shadeIn"/>
                     <feMerge><feMergeNode in="shadeIn"/><feMergeNode in="specIn"/></feMerge>
                   </filter>
-                  <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#fff" stop-opacity=".9"/>
-                    <stop offset=".45" stop-color="#fff" stop-opacity="0"/>
-                    <stop offset="1" stop-color="#fff" stop-opacity=".45"/>
-                  </linearGradient>
+                <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#fff" stop-opacity=".45"/>
+                  <stop offset=".45" stop-color="#fff" stop-opacity="0"/>
+                  <stop offset="1" stop-color="#fff" stop-opacity=".2"/>
+                </linearGradient>
                 </defs>
                 <use href="#starPath" fill="#fff" filter="url(#bisel)"/>
-                <use href="#starPath" fill="none" stroke="url(#edge)" stroke-width=".4"/>
+                <use href="#starPath" fill="none" stroke="url(#edge)" stroke-width=".15"/>
               </svg>
               <button class="tip" data-skill="0" tabindex="-1" aria-hidden="true" style="left:50.0%;top:6.0%">SQL</button>
               <button class="tip" data-skill="1" tabindex="-1" aria-hidden="true" style="left:91.8%;top:36.4%">Python</button>
