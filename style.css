@@ -746,12 +746,7 @@ button {
 
 /* Estrella de vidrio líquido, directamente sobre el fondo */
 .star-view { position: relative; width: 100%; aspect-ratio: 1; }
-.star-zoom {
-  --s: 1; --tx: 0; --ty: 0;
-  position: absolute; inset: 0;
-  transform: translate(calc(var(--tx) * 1%), calc(var(--ty) * 1%)) scale(var(--s));
-  transition: transform 1.1s cubic-bezier(.2, .8, .2, 1);
-}
+
 .star-float { position: absolute; inset: 0; animation: float 7s ease-in-out infinite alternate; }
 @keyframes float { from { transform: translateY(1.5%); } to { transform: translateY(-1.5%); } }
 .star-3d { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; opacity: .85; }
