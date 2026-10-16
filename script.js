@@ -156,29 +156,6 @@ function liquidGlass(el, { sdf, bezel, scale, res = 160, blur = 1.5 }) {
   new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(build); }).observe(el);
 }
 
-// Distancia al borde (positiva dentro) de la estrella, a partir de su contorno real
-function starSdf() {
-  const p = document.createElementNS(SVGNS, 'path');
-  p.setAttribute('d', document.getElementById('starPath').getAttribute('d'));
-  glassHost.appendChild(p);
-  const n = 240, len = p.getTotalLength(), pts = [];
-  for (let i = 0; i < n; i++) { const q = p.getPointAtLength((len * i) / n); pts.push([q.x, q.y]); }
-  glassHost.removeChild(p);
-  return (x, y, w, h) => {
-    const X = (x / w) * 100, Y = (y / h) * 100;
-    let best = 1e9, inside = false;
-    for (let i = 0, j = n - 1; i < n; j = i++) {
-      const [ax, ay] = pts[j], [bx, by] = pts[i];
-      if ((ay > Y) !== (by > Y) && X < ((bx - ax) * (Y - ay)) / (by - ay) + ax) inside = !inside;
-      const dx = bx - ax, dy = by - ay;
-      const t = Math.max(0, Math.min(1, ((X - ax) * dx + (Y - ay) * dy) / (dx * dx + dy * dy || 1)));
-      const ex = ax + t * dx - X, ey = ay + t * dy - Y;
-      const dd = ex * ex + ey * ey;
-      if (dd < best) best = dd;
-    }
-    return (inside ? 1 : -1) * Math.sqrt(best) * (w / 100);
-  };
-}
 
 // Distancia al borde (positiva dentro) de un rectángulo con esquinas redondeadas
 const roundedSdf = (r) => (x, y, w, h) => {
@@ -252,3 +229,7 @@ if ('IntersectionObserver' in window) {
 // ---------- Proyectos: vidrio con refracción ----------
 document.querySelectorAll('.proyecto').forEach((el) =>
   liquidGlass(el, { sdf: roundedSdf(32), bezel: () => 42, scale: 95, res: 220, blur: 10, sat: 0.5, bri: 1.1 }));
+
+// ---------- Vidrio de la estrella y de la tarjeta ----------
+liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res: 160, blur: 1, sat: 2 });
+liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 34, scale: 70, res: 220, blur: 5 });
