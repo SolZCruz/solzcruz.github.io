@@ -191,11 +191,13 @@ liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: 
 
 // ---------- Proyectos: los recuadros aparecen al deslizar ----------
 const proyectos = document.getElementById('habilidades');
+const proyectosGrid = proyectos.querySelector('.proyectos-grid');
 if ('IntersectionObserver' in window) {
   const ioP = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) { proyectos.classList.add('is-visible'); ioP.disconnect(); }
-  }, { threshold: 0.2 });
-  ioP.observe(proyectos);
+  }, { threshold: 0.35 });
+  ioP.observe(proyectosGrid);
 } else {
   proyectos.classList.add('is-visible');
 }
+
