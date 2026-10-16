@@ -740,13 +740,7 @@ button {
 .perfil .grain { opacity: .16; mix-blend-mode: multiply; }
 
 /* Detalle nítido detrás del vidrio: sin él no hay nada que refractar */
-.perfil-deco {
-  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-  background-image:
-    linear-gradient(rgba(0, 48, 73, .09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 48, 73, .09) 1px, transparent 1px);
-  background-size: 56px 56px;
-}
+
 
 .perfil-inner { position: relative; max-width: 72rem; margin: 0 auto; }
 .perfil-title {
