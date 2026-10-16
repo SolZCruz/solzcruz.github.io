@@ -279,30 +279,27 @@ button {
   overflow: hidden;
   border-radius: 50%;
 
+  /* Arriba azul, al centro violeta, abajo coral, con tus mismos colores */
   background:
     radial-gradient(
-      circle at 50% 4%,
-      color-mix(in srgb, var(--cielo) 55%, white),
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at 100% 55%,
-      color-mix(in srgb, var(--rojo) 65%, var(--crema)),
-      transparent 48%
-    ),
-    radial-gradient(
       circle at 50% 100%,
-      color-mix(in srgb, var(--rojo) 50%, var(--crema)),
-      transparent 60%
+      color-mix(in srgb, var(--rojo) 45%, var(--crema)),
+      transparent 58%
     ),
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--cielo) 60%, white) 0%,
-      color-mix(in srgb, var(--cielo) 35%, var(--crema)) 45%,
-      color-mix(in srgb, var(--rojo) 40%, var(--crema)) 100%
+      color-mix(in srgb, var(--cielo) 75%, white) 0%,
+      color-mix(in srgb, var(--cielo) 55%, var(--rojo)) 45%,
+      color-mix(in srgb, var(--rojo) 55%, var(--crema)) 100%
     );
 
-  box-shadow: inset -0.04em 0 0.5em rgba(253, 240, 213, 0.45);
+  /* Borde claro interior y resplandor blanco exterior */
+  box-shadow:
+    inset 0 0 6cqw 1cqw color-mix(in srgb, var(--cielo) 55%, white),
+    0 0 10cqw 3cqw rgba(253, 240, 213, 0.5);
+
+  /* La suavidad: difumina los bordes */
+  filter: blur(2.4cqw);
 }
 
 .orb-core::before {
@@ -311,7 +308,7 @@ button {
   position: absolute;
   inset: -30%;
 
-  opacity: 0.55;
+  opacity: 0.35;
 
   background: conic-gradient(
     from 0deg,
@@ -326,48 +323,6 @@ button {
   animation: spin 22s linear infinite;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
-/* Aro luminoso */
-
-.orb-ring {
-  position: absolute;
-  inset: -9%;
-
-  border-radius: 50%;
-  pointer-events: none;
-
-  background: conic-gradient(
-    from 0deg,
-    rgba(253, 240, 213, 0),
-    var(--crema),
-    rgba(253, 240, 213, 0) 35%,
-    var(--cielo),
-    rgba(253, 240, 213, 0) 70%,
-    var(--crema),
-    rgba(253, 240, 213, 0)
-  );
-
-  -webkit-mask: radial-gradient(
-    farthest-side,
-    transparent calc(100% - 3px),
-    #000 calc(100% - 2px)
-  );
-
-  mask: radial-gradient(
-    farthest-side,
-    transparent calc(100% - 3px),
-    #000 calc(100% - 2px)
-  );
-
-  filter: drop-shadow(0 0 6px rgba(253, 240, 213, 0.85));
-  animation: spin 14s linear infinite;
-}
 
 
 /* Texto de la esfera */
