@@ -799,7 +799,7 @@ button {
 .proyecto:hover h3, .proyecto:focus-visible h3 { scale: 1.08; }
 
 /* Entrada al deslizar: aparecen escalonados desde abajo */
-.proyectos.is-visible .proyecto {
+.proyecto.visible {
   animation: aparecer .9s cubic-bezier(.2, .8, .2, 1) calc(var(--i) * .12s) both;
 }
 @keyframes aparecer {
