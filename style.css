@@ -270,6 +270,14 @@ button {
 
   background: none;
   cursor: pointer;
+
+  animation: latido 3s ease-in-out infinite;
+}
+
+.hero.is-open .orb { animation: none; }
+
+@keyframes latido {
+  50% { transform: scale(1.05); }
 }
 
 .orb-core {
@@ -323,27 +331,6 @@ button {
 }
 
 
-
-/* Texto de la esfera */
-
-.orb-label {
-  position: absolute;
-  inset: 0;
-
-  display: grid;
-  place-items: center;
-
-  color: var(--noche);
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: 9cqw;
-
-  transition: opacity 0.4s;
-}
-
-.hero.is-open .orb-label {
-  opacity: 0;
-}
 
 .orb-info {
   position: absolute;
