@@ -186,8 +186,54 @@ const roundedSdf = (r) => (x, y, w, h) => {
   return -(Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) + Math.min(Math.max(qx, qy), 0) - r);
 };
 
-liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res: 160, blur: 1 });
-liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 34, scale: 70, res: 220, blur: 5 });
+function liquidGlass(el, { sdf, bezel, scale, res = 160, blur = 1.5, sat = 1.5, bri = 1.1 }) {
+  if (!isChromium) return;
+  const id = 'lg-' + Math.random().toString(36).slice(2, 8);
+  const pass = (k, ch) =>
+    `<feDisplacementMap in="SourceGraphic" in2="map" scale="${(scale * k).toFixed(1)}" xChannelSelector="R" yChannelSelector="G" result="d${ch}"/>` +
+    `<feColorMatrix in="d${ch}" type="matrix" values="${ch === 'r' ? '1 0 0 0 0' : '0 0 0 0 0'} ${ch === 'g' ? '0 1 0 0 0' : '0 0 0 0 0'} ${ch === 'b' ? '0 0 1 0 0' : '0 0 0 0 0'} 0 0 0 1 0" result="${ch}"/>`;
+  glassHost.insertAdjacentHTML('beforeend',
+    `<filter id="${id}" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">` +
+    `<feImage result="map" x="0" y="0" width="100%" height="100%" preserveAspectRatio="none"/>` +
+    pass(1, 'r') + pass(1.07, 'g') + pass(1.14, 'b') +
+    `<feBlend in="r" in2="g" mode="screen" result="rg"/><feBlend in="rg" in2="b" mode="screen"/></filter>`);
+  const feImage = glassHost.querySelector(`#${id} feImage`);
+
+  function build() {
+    const w = el.offsetWidth, h = el.offsetHeight;
+    if (!w || !h) return;
+    const k = res / Math.max(w, h);
+    const cw = Math.max(2, Math.round(w * k)), ch = Math.max(2, Math.round(h * k));
+    const cv = document.createElement('canvas');
+    cv.width = cw; cv.height = ch;
+    const ctx = cv.getContext('2d');
+    const img = ctx.createImageData(cw, ch);
+    const px = img.data, bz = bezel(w, h), e = 1 / k;
+    for (let y = 0; y < ch; y++) {
+      for (let x = 0; x < cw; x++) {
+        const rx = ((x + 0.5) / cw) * w, ry = ((y + 0.5) / ch) * h;
+        const i = (y * cw + x) * 4;
+        px[i] = px[i + 1] = px[i + 2] = 128; px[i + 3] = 255;
+        const d = sdf(rx, ry, w, h);
+        if (d > 0 && d < bz) {
+          const gx = sdf(rx + e, ry, w, h) - sdf(rx - e, ry, w, h);
+          const gy = sdf(rx, ry + e, w, h) - sdf(rx, ry - e, w, h);
+          const len = Math.hypot(gx, gy) || 1;
+          const m = Math.pow(1 - d / bz, 2);
+          px[i] = 128 + 127 * m * (gx / len);
+          px[i + 1] = 128 + 127 * m * (gy / len);
+        }
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+    feImage.setAttribute('href', cv.toDataURL());
+    const f = `url(#${id}) blur(${blur}px) saturate(${sat}) brightness(${bri})`;
+    el.style.backdropFilter = f;
+    el.style.webkitBackdropFilter = f;
+  }
+  let raf;
+  new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(build); }).observe(el);
+}
 
 // ---------- Proyectos: los recuadros aparecen al deslizar ----------
 const proyectos = document.getElementById('habilidades');
@@ -201,3 +247,6 @@ if ('IntersectionObserver' in window) {
   proyectos.classList.add('is-visible');
 }
 
+// ---------- Proyectos: vidrio con refracción ----------
+document.querySelectorAll('.proyecto').forEach((el) =>
+  liquidGlass(el, { sdf: roundedSdf(32), bezel: () => 42, scale: 95, res: 220, blur: 10, sat: 0.35, bri: 0.85 }));
