@@ -231,5 +231,5 @@ document.querySelectorAll('.proyecto').forEach((el) =>
   liquidGlass(el, { sdf: roundedSdf(32), bezel: () => 42, scale: 95, res: 220, blur: 10, sat: 0.5, bri: 1.1 }));
 
 // ---------- Vidrio de la estrella y de la tarjeta ----------
-liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res: 160, blur: 1, sat: 2 });
+liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res: 160, blur: 1, sat: 3, bri: 1 });
 liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 34, scale: 70, res: 220, blur: 5 });
