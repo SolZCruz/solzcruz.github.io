@@ -113,7 +113,7 @@
                     <feDiffuseLighting in="b" surfaceScale="5" diffuseConstant="1" lighting-color="#fff" result="diff">
                       <feDistantLight azimuth="225" elevation="50"/>
                     </feDiffuseLighting>
-                    <feColorMatrix in="diff" type="matrix" values="0 0 0 0 0  0 0 0 0 .19  0 0 0 0 .29  -2.2 0 0 0 1.7" result="shade"/>
+                    <feColorMatrix in="diff" type="matrix" values="0 0 0 0 .47  0 0 0 0 0  0 0 0 0 0  -2.2 0 0 0 1.7" result="shade"/>
                     <feComposite in="shade" in2="SourceAlpha" operator="in" result="shadeIn"/>
                     <feMerge><feMergeNode in="shadeIn"/><feMergeNode in="specIn"/></feMerge>
                   </filter>
