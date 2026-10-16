@@ -747,12 +747,7 @@ button {
     linear-gradient(90deg, rgba(0, 48, 73, .09) 1px, transparent 1px);
   background-size: 56px 56px;
 }
-.perfil-deco span {
-  position: absolute; left: -3vw; top: 14%;
-  font-family: var(--display); font-weight: 800; line-height: 1; letter-spacing: -.05em;
-  font-size: clamp(9rem, 32vw, 30rem);
-  color: transparent; -webkit-text-stroke: 3px rgba(0, 48, 73, .55);
-}
+
 .perfil-inner { position: relative; max-width: 72rem; margin: 0 auto; }
 .perfil-title {
   position: relative; z-index: 3; margin: 0 0 clamp(1rem, 3vw, 2rem);
