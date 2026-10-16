@@ -235,16 +235,18 @@ function liquidGlass(el, { sdf, bezel, scale, res = 160, blur = 1.5, sat = 1.5, 
   new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(build); }).observe(el);
 }
 
-// ---------- Proyectos: los recuadros aparecen al deslizar ----------
-const proyectos = document.getElementById('habilidades');
-const proyectosGrid = proyectos.querySelector('.proyectos-grid');
+// ---------- Proyectos: cada recuadro aparece al deslizar ----------
+const tarjetas = document.querySelectorAll('.proyecto');
 if ('IntersectionObserver' in window) {
   const ioP = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) { proyectos.classList.add('is-visible'); ioP.disconnect(); }
-  }, { threshold: 0.35 });
-  ioP.observe(proyectosGrid);
+    entries.forEach((en) => {
+      if (en.intersectionRatio >= 0.35) en.target.classList.add('visible');
+      else if (en.intersectionRatio === 0) en.target.classList.remove('visible');
+    });
+  }, { threshold: [0, 0.35] });
+  tarjetas.forEach((t) => ioP.observe(t));
 } else {
-  proyectos.classList.add('is-visible');
+  tarjetas.forEach((t) => t.classList.add('visible'));
 }
 
 // ---------- Proyectos: vidrio con refracción ----------
