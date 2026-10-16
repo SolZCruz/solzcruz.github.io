@@ -730,14 +730,8 @@ button {
   position: relative; z-index: 1; overflow: hidden;
   margin-top: -3rem; border-radius: 3rem 3rem 0 0;
   padding: clamp(5rem, 11vw, 8rem) clamp(1.2rem, 6vw, 6rem);
-  background: var(--crema); color: var(--noche);
+  background: var(--noche); color: var(--crema);
 }
-/* Mismo fondo que el inicio, pero con el crema dominando */
-.perfil .b1 { opacity: .5; }
-.perfil .b2 { opacity: .55; }
-.perfil .b3 { opacity: .3; }
-.perfil .b4 { background: #fff; opacity: .8; }
-.perfil .grain { opacity: .16; mix-blend-mode: multiply; }
 
 /* Detalle nítido detrás del vidrio: sin él no hay nada que refractar */
 
