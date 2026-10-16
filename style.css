@@ -681,10 +681,9 @@ button {
 
 /* ---------- Mi perfil (la estrella) ---------- */
 .perfil {
-  position: relative; z-index: 1; overflow: hidden;
-  margin-top: -3rem; border-radius: 3rem 3rem 0 0;
+  position: relative; z-index: 1;
   padding: clamp(5rem, 11vw, 8rem) clamp(1.2rem, 6vw, 6rem);
-  background: var(--noche); color: var(--crema);
+  background: transparent; color: var(--crema);
 }
 
 /* Detalle nítido detrás del vidrio: sin él no hay nada que refractar */
@@ -756,7 +755,7 @@ button {
   min-height: 100vh; min-height: 100svh;
   display: flex; align-items: center;
   padding: clamp(4rem, 9vw, 6rem) clamp(1.2rem, 6vw, 6rem);
-  background: var(--noche); color: var(--crema);
+  background: transparent; color: var(--crema);
 }
 .proyectos-inner { position: relative; width: 100%; max-width: 72rem; margin: 0 auto; }
 
@@ -813,3 +812,9 @@ button {
 
 /* Con animaciones reducidas, se muestran sin movimiento */
 @media (prefers-reduced-motion: reduce) { .proyecto { opacity: 1; } }
+
+.fondo-continuo {
+  position: relative; z-index: 1; overflow: hidden;
+  margin-top: -3rem; border-radius: 3rem 3rem 0 0;
+  background: var(--noche);
+}
