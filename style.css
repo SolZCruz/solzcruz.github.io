@@ -806,3 +806,62 @@ button {
   margin-top: -3rem; border-radius: 3rem 3rem 0 0;
   background: var(--noche);
 }
+
+
+/* ---------- Banner final ---------- */
+.banner {
+  position: relative; z-index: 1;
+  padding: 0 clamp(1.2rem, 6vw, 6rem) clamp(2.5rem, 6vw, 4rem);
+}
+.banner-inner {
+  max-width: 72rem; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  min-height: clamp(10rem, 18vw, 14rem);
+  border-radius: 32px; overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .4);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, .3);
+}
+
+/* Cada panel: vidrio transparente con el tono de su color */
+.banner-panel {
+  position: relative; isolation: isolate;
+  display: grid; place-items: center; padding: 1.5rem;
+  -webkit-backdrop-filter: blur(16px) saturate(1.8) brightness(1.1);
+  backdrop-filter: blur(16px) saturate(1.8) brightness(1.1);
+}
+.banner-panel + .banner-panel { border-left: 1px solid rgba(255, 255, 255, .4); }
+.panel-azul   { background: linear-gradient(135deg, rgba(110, 175, 225, .7), rgba(60, 120, 190, .45)); }
+.panel-rojo   { background: linear-gradient(135deg, rgba(255, 90, 100, .7), rgba(215, 25, 45, .45)); }
+.panel-dorado { background: linear-gradient(135deg, rgba(255, 228, 160, .7), rgba(250, 170, 70, .45)); }
+
+/* Brillo de papel de revista: mitad superior más clara con corte nítido... */
+.banner-panel::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .4), rgba(255, 255, 255, .08) 48%, transparent 50%);
+}
+/* ...y un destello diagonal */
+.banner-panel::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(115deg, transparent 28%, rgba(255, 255, 255, .38) 40%, rgba(255, 255, 255, .06) 48%, transparent 56%);
+}
+
+/* Botón del CV */
+.cv-btn {
+  display: inline-flex; align-items: center; gap: .6rem;
+  padding: .9rem 1.8rem; border-radius: 999px; text-decoration: none;
+  font-family: var(--display); font-weight: 800; font-size: clamp(1rem, 1.6vw, 1.2rem);
+  color: var(--noche);
+  background: rgba(255, 255, 255, .55); border: 1px solid rgba(255, 255, 255, .85);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .2), inset 0 1px 0 #fff;
+  transition: translate .4s cubic-bezier(.2, .8, .2, 1), background .3s, box-shadow .3s;
+}
+.cv-btn:hover, .cv-btn:focus-visible {
+  translate: 0 -3px; background: rgba(255, 255, 255, .8);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, .28), inset 0 1px 0 #fff;
+}
+
+@media (max-width: 700px) {
+  .banner-inner { grid-template-columns: 1fr; }
+  .banner-panel { min-height: 7rem; }
+  .banner-panel + .banner-panel { border-left: 0; border-top: 1px solid rgba(255, 255, 255, .4); }
+}
