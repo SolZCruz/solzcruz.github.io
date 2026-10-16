@@ -807,43 +807,22 @@ button {
   background: var(--noche);
 }
 
-
 /* ---------- Banner final ---------- */
-.banner {
-  position: relative; z-index: 1;
-  padding: 0 clamp(1.2rem, 6vw, 6rem) clamp(2.5rem, 6vw, 4rem);
-}
+.banner { position: relative; z-index: 1; padding: 0; }
 .banner-inner {
-  max-width: 72rem; margin: 0 auto;
   display: grid; grid-template-columns: repeat(3, 1fr);
   min-height: clamp(10rem, 18vw, 14rem);
-  border-radius: 32px; overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, .4);
-  box-shadow: 0 24px 50px rgba(0, 0, 0, .3);
 }
 
-/* Cada panel: vidrio transparente con el tono de su color */
+/* Tres paneles con los colores de la paleta y algo de transparencia */
 .banner-panel {
-  position: relative; isolation: isolate;
   display: grid; place-items: center; padding: 1.5rem;
-  -webkit-backdrop-filter: blur(16px) saturate(1.8) brightness(1.1);
-  backdrop-filter: blur(16px) saturate(1.8) brightness(1.1);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
 }
-.banner-panel + .banner-panel { border-left: 1px solid rgba(255, 255, 255, .4); }
-.panel-azul   { background: linear-gradient(135deg, rgba(110, 175, 225, .7), rgba(60, 120, 190, .45)); }
-.panel-rojo   { background: linear-gradient(135deg, rgba(255, 90, 100, .7), rgba(215, 25, 45, .45)); }
-.panel-dorado { background: linear-gradient(135deg, rgba(255, 228, 160, .7), rgba(250, 170, 70, .45)); }
-
-/* Brillo de papel de revista: mitad superior más clara con corte nítido... */
-.banner-panel::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(255, 255, 255, .4), rgba(255, 255, 255, .08) 48%, transparent 50%);
-}
-/* ...y un destello diagonal */
-.banner-panel::after {
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: linear-gradient(115deg, transparent 28%, rgba(255, 255, 255, .38) 40%, rgba(255, 255, 255, .06) 48%, transparent 56%);
-}
+.banner-panel + .banner-panel { border-left: 1px solid rgba(255, 255, 255, .3); }
+.panel-azul  { background: rgba(102, 155, 188, .75); }
+.panel-rojo  { background: rgba(193, 18, 31, .75); }
+.panel-crema { background: rgba(253, 240, 213, .75); }
 
 /* Botón del CV */
 .cv-btn {
@@ -863,5 +842,5 @@ button {
 @media (max-width: 700px) {
   .banner-inner { grid-template-columns: 1fr; }
   .banner-panel { min-height: 7rem; }
-  .banner-panel + .banner-panel { border-left: 0; border-top: 1px solid rgba(255, 255, 255, .4); }
+  .banner-panel + .banner-panel { border-left: 0; border-top: 1px solid rgba(255, 255, 255, .3); }
 }
