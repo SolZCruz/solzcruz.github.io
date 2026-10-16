@@ -749,3 +749,59 @@ button {
 @media (max-width: 800px) {
   .perfil-grid { grid-template-columns: 1fr; }
 }
+
+/* ---------- Proyectos ---------- */
+.proyectos {
+  position: relative; z-index: 1; overflow: hidden;
+  padding: clamp(4rem, 9vw, 7rem) clamp(1.2rem, 6vw, 6rem) clamp(5rem, 11vw, 8rem);
+  background: var(--noche); color: var(--crema);
+}
+.proyectos-inner { position: relative; max-width: 72rem; margin: 0 auto; }
+.proyectos-title {
+  margin: 0 0 clamp(1.5rem, 4vw, 3rem);
+  font-family: var(--display); font-weight: 800; line-height: .95; letter-spacing: -.04em;
+  font-size: clamp(2.8rem, 9vw, 7rem);
+}
+.proyectos-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+/* Recuadro de vidrio transparente */
+.proyecto {
+  position: relative;
+  display: grid; place-items: center; text-align: center;
+  min-height: clamp(13rem, 24vw, 20rem);
+  border-radius: 32px; text-decoration: none; color: var(--crema);
+  background: linear-gradient(135deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .04) 60%, rgba(255, 255, 255, .12));
+  border: 1px solid rgba(255, 255, 255, .28);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.6); backdrop-filter: blur(14px) saturate(1.6);
+  opacity: 0;
+  transition: translate .5s cubic-bezier(.2, .8, .2, 1), background .4s, box-shadow .4s;
+}
+.proyecto h3 {
+  margin: 0; font-family: var(--display); font-weight: 800; letter-spacing: -.03em; line-height: 1;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  transition: scale .5s cubic-bezier(.2, .8, .2, 1);
+}
+.proyecto:hover, .proyecto:focus-visible {
+  translate: 0 -10px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, .08) 60%, rgba(255, 255, 255, .2));
+  box-shadow: 0 34px 60px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .55);
+}
+.proyecto:hover h3, .proyecto:focus-visible h3 { scale: 1.08; }
+
+/* Entrada al deslizar: aparecen escalonados desde abajo */
+.proyectos.is-visible .proyecto {
+  animation: aparecer .9s cubic-bezier(.2, .8, .2, 1) calc(var(--i) * .12s) both;
+}
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(50px) scale(.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (max-width: 900px) { .proyectos-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .proyectos-grid { grid-template-columns: 1fr; } }
+
+/* Con animaciones reducidas, se muestran sin movimiento */
+@media (prefers-reduced-motion: reduce) { .proyecto { opacity: 1; } }
