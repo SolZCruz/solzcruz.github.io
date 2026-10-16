@@ -249,4 +249,4 @@ if ('IntersectionObserver' in window) {
 
 // ---------- Proyectos: vidrio con refracción ----------
 document.querySelectorAll('.proyecto').forEach((el) =>
-  liquidGlass(el, { sdf: roundedSdf(32), bezel: () => 42, scale: 95, res: 220, blur: 10, sat: 0.35, bri: 0.85 }));
+  liquidGlass(el, { sdf: roundedSdf(32), bezel: () => 42, scale: 95, res: 220, blur: 10, sat: 0.5, bri: 1.25 }));
