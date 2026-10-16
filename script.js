@@ -188,3 +188,14 @@ const roundedSdf = (r) => (x, y, w, h) => {
 
 liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res: 160, blur: 1 });
 liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 34, scale: 70, res: 220, blur: 5 });
+
+// ---------- Proyectos: los recuadros aparecen al deslizar ----------
+const proyectos = document.getElementById('habilidades');
+if ('IntersectionObserver' in window) {
+  const ioP = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { proyectos.classList.add('is-visible'); ioP.disconnect(); }
+  }, { threshold: 0.2 });
+  ioP.observe(proyectos);
+} else {
+  proyectos.classList.add('is-visible');
+}
