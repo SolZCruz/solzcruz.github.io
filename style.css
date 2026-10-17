@@ -901,3 +901,10 @@ button {
 
 /* Sin scroll mientras dura la intro */
 html.intro-lock { overflow: hidden; }
+
+
+/* Fondo negro durante la intro; luego pasa al fondo normal */
+.hero { animation: fondo-intro 1.4s ease 3.9s backwards; }
+@keyframes fondo-intro {
+  from { background-color: #000; }
+}
