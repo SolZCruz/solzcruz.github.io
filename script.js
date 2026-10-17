@@ -233,3 +233,10 @@ document.querySelectorAll('.proyecto').forEach((el) =>
 // ---------- Vidrio de la estrella y de la tarjeta ----------
 liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res: 160, blur: 1, sat: 3, bri: 1 });
 liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 22, scale: 45, res: 220, blur: 3, sat: 1.3, bri: 1 });
+
+// ---------- Intro: sin scroll mientras dura ----------
+if (!reduceMotion) {
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  document.documentElement.classList.add('intro-lock');
+  setTimeout(() => document.documentElement.classList.remove('intro-lock'), 5300);
+}
