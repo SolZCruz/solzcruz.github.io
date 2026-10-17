@@ -862,11 +862,11 @@ button {
   animation: intro-estrella 5.2s linear both;
 }
 @keyframes intro-estrella {
-  0%   { transform: scale(20) rotate(-25deg); top: 50%; opacity: 1; animation-timing-function: cubic-bezier(.16, .84, .3, 1); }
-  30%  { transform: scale(1) rotate(0deg);    top: 50%; opacity: 1; animation-timing-function: linear; }
-  52%  { transform: scale(1) rotate(0deg);    top: 50%; opacity: 1; animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
-  84%  { transform: scale(.18) rotate(720deg); top: 78%; opacity: 1; animation-timing-function: ease-in; }
-  100% { transform: scale(0) rotate(900deg);   top: 78%; opacity: 0; }
+  0%   { transform: scale(24) rotate(-25deg);   top: 50%; opacity: 1; animation-timing-function: cubic-bezier(.16, .84, .3, 1); }
+  30%  { transform: scale(1.7) rotate(0deg);    top: 50%; opacity: 1; animation-timing-function: linear; }
+  52%  { transform: scale(1.7) rotate(0deg);    top: 50%; opacity: 1; animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
+  84%  { transform: scale(.18) rotate(720deg);  top: 78%; opacity: 1; animation-timing-function: ease-in; }
+  100% { transform: scale(0) rotate(900deg);    top: 78%; opacity: 0; }
 }
 /* Nombre en el centro de la portada */
 .hero-name {
