@@ -848,19 +848,18 @@ button {
 /* ---------- Intro: estrella y nombre ---------- */
 .intro-star {
   position: absolute; left: 50%; top: 50%; z-index: 2;
-  width: min(34vmin, 260px); aspect-ratio: 1;
+  width: min(52vmin, 520px); aspect-ratio: 1;
   translate: -50% -50%;
   opacity: 0; pointer-events: none;
   animation: intro-estrella 5.2s linear both;
 }
 @keyframes intro-estrella {
-  0%   { transform: scale(18) rotate(-25deg); top: 50%; opacity: 1; animation-timing-function: cubic-bezier(.16, .84, .3, 1); }
+  0%   { transform: scale(20) rotate(-25deg); top: 50%; opacity: 1; animation-timing-function: cubic-bezier(.16, .84, .3, 1); }
   30%  { transform: scale(1) rotate(0deg);    top: 50%; opacity: 1; animation-timing-function: linear; }
   52%  { transform: scale(1) rotate(0deg);    top: 50%; opacity: 1; animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
   84%  { transform: scale(.18) rotate(720deg); top: 78%; opacity: 1; animation-timing-function: ease-in; }
   100% { transform: scale(0) rotate(900deg);   top: 78%; opacity: 0; }
 }
-
 /* Nombre en el centro de la portada */
 .hero-name {
   position: absolute; left: 50%; top: 50%; z-index: 3;
@@ -885,3 +884,12 @@ button {
   55%  { opacity: 1; scale: 1.18; }
   100% { opacity: 1; scale: 1; }
 }
+/* Durante la intro no se ve nada más: ni el índice ni el fondo */
+.topbar { animation: aparecer-suave .8s ease 4.6s backwards; }
+.hero .field, .hero .grain { animation: aparecer-suave 1.2s ease 4s backwards; }
+@keyframes aparecer-suave {
+  from { opacity: 0; pointer-events: none; }
+}
+
+/* Sin scroll mientras dura la intro */
+html.intro-lock { overflow: hidden; }
