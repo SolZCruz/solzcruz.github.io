@@ -246,7 +246,7 @@ button {
 ================================================== */
 
 .stage {
-  --d: min(24vmin, 200px);
+  --d: min(16vmin, 130px);
 
   position: absolute;
   left: 50%;
