@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./fonts/PPNeueMontreal-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: block;
+}
 
 /* ==================================================
    1. VARIABLES Y CONFIGURACIÓN GENERAL
@@ -12,6 +19,7 @@
 
   --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --texto: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --nombre: "Neue Montreal", "Helvetica Neue", Arial, sans-serif;
 
   --padding-x: clamp(1.2rem, 6vw, 6rem);
 }
@@ -380,8 +388,8 @@ button {
 }
 
 .orb-info h1 {
-  font-family: var(--display);
-  font-weight: 800;
+  font-family: var(--nombre);
+  font-weight: 300;
   font-size: 11cqw;
   line-height: 0.95;
   letter-spacing: -0.03em;
@@ -865,7 +873,7 @@ button {
   position: absolute; left: 50%; top: 50%; z-index: 3;
   translate: -50% -50%;
   margin: 0; width: max-content; max-width: 90vw; text-align: center;
-  font-family: var(--display); font-weight: 800; line-height: .95; letter-spacing: -.04em;
+  font-family: var(--nombre); font-weight: 300; letter-spacing: -.03em;
   font-size: clamp(2.6rem, 9vw, 7rem);
   color: var(--crema); text-shadow: 0 4px 30px rgba(0, 0, 0, .35);
   pointer-events: none;
