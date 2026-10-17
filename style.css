@@ -894,7 +894,7 @@ button {
 }
 /* Durante la intro no se ve nada más: ni el índice ni el fondo */
 .topbar { animation: aparecer-suave .8s ease 4.6s backwards; }
-.hero .field, .hero .grain { animation: aparecer-suave 1.2s ease 4s backwards; }
+
 @keyframes aparecer-suave {
   from { opacity: 0; pointer-events: none; }
 }
@@ -902,9 +902,43 @@ button {
 /* Sin scroll mientras dura la intro */
 html.intro-lock { overflow: hidden; }
 
-
-/* Fondo negro durante la intro; luego pasa al fondo normal */
-.hero { animation: fondo-intro 1.4s ease 3.9s backwards; }
-@keyframes fondo-intro {
-  from { background-color: #000; }
+/* Fondo de la intro: negro con neblina azul que se aclara al final */
+.intro-bg {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 52%, rgba(25, 80, 150, .6), transparent 72%),
+    radial-gradient(ellipse 55% 45% at 85% 12%, rgba(0, 60, 100, .55), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 10% 95%, rgba(10, 40, 90, .5), transparent 70%),
+    #000;
+  opacity: 0;
+  animation: intro-bg 5.2s ease-in-out both;
 }
+@keyframes intro-bg {
+  0%, 62% { opacity: 1; }
+  100%    { opacity: 0; }
+}
+
+/* Aura blanca detrás de la estrella */
+.intro-aura {
+  position: absolute; left: 50%; top: 50%; z-index: 1;
+  width: min(99vmin, 990px); aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle closest-side,
+    rgba(255, 255, 255, .75) 0%,
+    rgba(255, 255, 255, .5) 36%,
+    rgba(255, 255, 255, .16) 62%,
+    transparent 100%);
+  opacity: 0; pointer-events: none;
+  animation: intro-aura 5.2s linear both;
+}
+@keyframes intro-aura {
+  0%, 28% { transform: scale(1);   top: 50%; opacity: 0; animation-timing-function: ease-out; }
+  38%     { transform: scale(1);   top: 50%; opacity: 1; }
+  52%     { transform: scale(1);   top: 50%; opacity: 1; animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
+  84%     { transform: scale(.18); top: 78%; opacity: 1; animation-timing-function: ease-in; }
+  100%    { transform: scale(0);   top: 78%; opacity: 0; }
+}
+
+/* La esfera siempre por encima del fondo de la intro */
+.stage { z-index: 1; }
