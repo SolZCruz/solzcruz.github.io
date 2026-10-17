@@ -166,7 +166,7 @@ button {
 }
 
 .b1 {
-  --k: 160px;
+  --k: 420px;
 
   width: 55vmax;
   height: 55vmax;
@@ -178,7 +178,7 @@ button {
 }
 
 .b2 {
-  --k: -120px;
+  --k: -320px;
 
   width: 45vmax;
   height: 45vmax;
@@ -191,7 +191,7 @@ button {
 }
 
 .b3 {
-  --k: 80px;
+  --k: 220px;
 
   width: 38vmax;
   height: 38vmax;
@@ -204,7 +204,7 @@ button {
 }
 
 .b4 {
-  --k: -200px;
+  --k: -520px;
 
   width: 22vmax;
   height: 22vmax;
@@ -319,25 +319,42 @@ button {
 
 .orb-core::before {
   content: "";
-
   position: absolute;
   inset: -30%;
-
-  opacity: 0.35;
+  opacity: 0.9;
 
   background: conic-gradient(
     from 0deg,
     transparent,
-    color-mix(in srgb, var(--rojo) 50%, var(--crema)),
+    color-mix(in srgb, var(--rojo) 80%, white) 18%,
     transparent 40%,
-    color-mix(in srgb, var(--cielo) 60%, white),
+    color-mix(in srgb, var(--cielo) 85%, white) 62%,
+    transparent 85%
+  );
+
+  filter: blur(14px);
+  animation: spin 8s linear infinite;
+}
+
+/* Segundo remolino, girando al revés */
+.orb-core::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  opacity: 0.7;
+
+  background: conic-gradient(
+    from 90deg,
+    transparent,
+    white 14%,
+    transparent 34%,
+    color-mix(in srgb, var(--rojo) 55%, white) 58%,
     transparent 80%
   );
 
-  filter: blur(22px);
-  animation: spin 22s linear infinite;
+  filter: blur(18px);
+  animation: spin 13s linear infinite reverse;
 }
-
 
 
 .orb-info {
