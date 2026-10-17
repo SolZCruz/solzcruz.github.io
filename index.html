@@ -46,7 +46,9 @@
         <p class="stack">Datos, econometría y análisis con SQL, Python y R.</p>
       </div>
     </div>
-    <!-- Intro: estrella que se funde con la esfera + nombre -->
+    <!-- Intro: fondo + aura + estrella-->
+<div class="intro-bg" aria-hidden="true"></div>
+<div class="intro-aura" aria-hidden="true"></div>
 <svg class="intro-star" viewBox="0 0 100 100" aria-hidden="true">
   <defs>
     <linearGradient id="introGrad" x1="0" y1="0" x2="1" y2="1">
@@ -56,14 +58,17 @@
     </linearGradient>
   </defs>
   <use href="#starPath" fill="url(#introGrad)"/>
- <g fill="none" stroke="#fff" stroke-linejoin="round">
-  <use href="#starPath" stroke-width="4"   stroke-opacity=".06"/>
-  <use href="#starPath" stroke-width="2.4" stroke-opacity=".1"/>
-  <use href="#starPath" stroke-width="1.2" stroke-opacity=".16"/>
-</g>
+  <!-- Borde difuminado: varios contornos blancos que se desvanecen -->
+  <g fill="none" stroke="#fff" stroke-linejoin="round">
+    <use href="#starPath" stroke-width="14"  stroke-opacity=".05"/>
+    <use href="#starPath" stroke-width="10"  stroke-opacity=".07"/>
+    <use href="#starPath" stroke-width="7"   stroke-opacity=".1"/>
+    <use href="#starPath" stroke-width="4.5" stroke-opacity=".14"/>
+    <use href="#starPath" stroke-width="2.5" stroke-opacity=".2"/>
+    <use href="#starPath" stroke-width="1"   stroke-opacity=".25"/>
+  </g>
 </svg>
 <div class="hero-name" aria-hidden="true">Sol Cruz</div>
-
     
   </section>
 
