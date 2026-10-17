@@ -33,8 +33,8 @@ if (!reduceMotion) {
     ty = (e.clientY - r.top) / r.height - 0.5;
   });
   (function loop() {
-    x += (tx - x) * 0.05;
-    y += (ty - y) * 0.05;
+    x += (tx - x) * 0.09;
+    y += (ty - y) * 0.09;
     field.style.setProperty('--mx', x.toFixed(3));
     field.style.setProperty('--my', y.toFixed(3));
     requestAnimationFrame(loop);
