@@ -1,8 +1,8 @@
 @font-face {
   font-family: "Neue Montreal";
-  src: url("./fonts/PPNeueMontreal-Italic.otf") format("opentype");
-  font-weight: 300;
-  font-style: normal;
+  src: url("./fonts/PPNeueMontreal-SemiboldItalic.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
   font-display: block;
 }
 
@@ -897,7 +897,7 @@ button {
   pointer-events: none;
   transition: opacity .5s;
   animation: nombre-in 1s cubic-bezier(.2, .8, .2, 1) 1.5s backwards,
-             nombre-out .7s ease 4.4s forwards;
+             nombre-out .7s ease 5.6s forwards;
 }
 .hero.is-open .hero-name { opacity: 0; }
 @keyframes nombre-in {
@@ -1006,14 +1006,14 @@ html.intro-lock body { touch-action: none; }
   font-size: clamp(2.4rem, min(7vw, 11vh), 5.5rem);
   color: var(--crema); text-shadow: 0 4px 30px rgba(0, 0, 0, .35);
   opacity: 0;
-  animation: palabra 14.4s ease-in-out calc(5.2s + var(--i) * 2.4s) infinite backwards;
+  animation: palabra 24s ease-in-out calc(6.4s + var(--i) * 4s) infinite backwards;
 }
 
-/* Cada palabra dura 2,4 s (un sexto del ciclo de 14,4 s) */
+/* Cada palabra dura 4 s: 1,4 s entrando, 1,2 s quieta y 1,4 s saliendo */
 @keyframes palabra {
   0%     { opacity: 0; transform: translate(-6vw, -5vh); filter: blur(12px); }
-  4%     { opacity: 1; transform: none; filter: none; }
-  12.5%  { opacity: 1; transform: none; filter: none; }
+  5.83%  { opacity: 1; transform: none; filter: none; }
+  10.83% { opacity: 1; transform: none; filter: none; }
   16.67% { opacity: 0; transform: translate(6vw, 5vh); filter: blur(12px); }
   100%   { opacity: 0; transform: translate(6vw, 5vh); filter: blur(12px); }
 }
