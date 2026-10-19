@@ -956,3 +956,7 @@ html.intro-lock { overflow: hidden; }
 
 /* La esfera siempre por encima del fondo de la intro */
 .stage { z-index: 1; }
+
+
+.topbar-right { display: flex; align-items: flex-start; gap: .6rem; }
+.lang-btn { min-width: 3.4rem; }
