@@ -32,7 +32,7 @@
 </header>
 
     <!-- PARTE 1: Inicio -->
-  <section class="hero" id="inicio">
+<section class="hero" id="inicio">
     <div class="field" aria-hidden="true">
       <span class="blob b1"></span>
       <span class="blob b2"></span>
@@ -50,20 +50,20 @@
         <h1>Tu Nombre</h1>
         <p class="role" data-i18n="role">Economista en formación</p>
         <p class="stack" data-i18n="stack">Datos, econometría y análisis con SQL, Python y R.</p>
-      </div>
+       </div>
     </div>
     <!-- Intro: fondo + aura + estrella-->
-<div class="intro-bg" aria-hidden="true"></div>
-<div class="intro-aura" aria-hidden="true"></div>
-<svg class="intro-star" viewBox="0 0 100 100" aria-hidden="true">
-  <defs>
-    <linearGradient id="introGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FF6B78"/>
-      <stop offset=".55" stop-color="#C1121F"/>
-      <stop offset="1" stop-color="#780000"/>
-    </linearGradient>
-  </defs>
-  <use href="#starPath" fill="url(#introGrad)"/>
+    <div class="intro-bg" aria-hidden="true"></div>
+    <div class="intro-aura" aria-hidden="true"></div>
+    <svg class="intro-star" viewBox="0 0 100 100" aria-hidden="true">
+    <defs>
+      <linearGradient id="introGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#FF6B78"/>
+        <stop offset=".55" stop-color="#C1121F"/>
+        <stop offset="1" stop-color="#780000"/>
+       </linearGradient>
+     </defs>
+   <use href="#starPath" fill="url(#introGrad)"/>
   <!-- Borde difuminado: varios contornos blancos que se desvanecen -->
   <g fill="none" stroke="#fff" stroke-linejoin="round">
     <use href="#starPath" stroke-width="14"  stroke-opacity=".05"/>
@@ -74,9 +74,19 @@
     <use href="#starPath" stroke-width="1"   stroke-opacity=".25"/>
   </g>
 </svg>
-<div class="hero-name" aria-hidden="true">Sol Cruz</div>
+ <div class="hero-name" aria-hidden="true">Sol Cruz</div>
     
-  </section>
+ <!-- Palabras que rotan en la portada -->
+ <div class="palabras" aria-hidden="true">
+   <span class="palabra" data-i18n="w0" style="--i:0; --x:6%;  --y:12%">Análisis de datos</span>
+   <span class="palabra" data-i18n="w1" style="--i:1; --x:12%; --y:20%">Economía aplicada</span>
+   <span class="palabra" data-i18n="w2" style="--i:2; --x:18%; --y:28%">Finanzas</span>
+   <span class="palabra" data-i18n="w3" style="--i:3; --x:24%; --y:36%">Investigación</span>
+   <span class="palabra" data-i18n="w4" style="--i:4; --x:30%; --y:44%">Toma de decisiones</span>
+   <span class="palabra" data-i18n="w5" style="--i:5; --x:36%; --y:52%">Econometría</span>
+ </div>   
+
+</section>
 
    
 <!-- PARTE 2: Sobre mí -->
