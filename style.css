@@ -455,9 +455,9 @@ button {
   inset: 0;
   z-index: -1;
 
-  background-image: url("./fotov.png");
+  background-image: url("./foto_.png");
   background-size: auto 100%;
-  background-position: left center;
+  background-position: 10vw center;   /* antes: left center */
   background-repeat: no-repeat;
 }
 
