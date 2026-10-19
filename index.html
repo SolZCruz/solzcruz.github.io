@@ -16,7 +16,10 @@
   <header class="topbar">
   <p class="site-name" data-i18n="siteName">Portafolio de ciencia de datos</p>
   <div class="topbar-right">
-    <button class="menu-btn lang-btn" id="langBtn" data-i18n-aria="langAria" aria-label="Cambiar idioma">EN</button>
+    <div class="lang-switch" role="group" data-i18n-aria="langAria" aria-label="Idioma">
+      <button type="button" data-lang="es" lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button>
+    </div>
     <div class="menu">
       <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menuPanel" data-i18n="menuBtn">Índice</button>
       <nav class="menu-panel" id="menuPanel" data-i18n-aria="menuAria" aria-label="Índice" hidden>
@@ -201,5 +204,6 @@
   <!-- Las siguientes secciones se agregan aquí: #sobre-mi, #habilidades, #contacto -->
 
 <script src="./script.js"></script>
+<script src="./idioma.js"></script>
 </body>
 </html>
