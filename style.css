@@ -914,7 +914,12 @@ button {
 }
 
 /* Sin scroll mientras dura la intro */
-html.intro-lock { overflow: hidden; }
+html.intro-lock,
+html.intro-lock body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+html.intro-lock body { touch-action: none; }
 
 /* Fondo de la intro: negro con neblina azul que se aclara al final */
 .intro-bg {
