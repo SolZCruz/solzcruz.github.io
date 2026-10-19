@@ -8,6 +8,8 @@
       navAbout: 'Sobre mí', navProjects: 'Habilidades y proyectos', navContact: 'Contacto',
       role: 'Economista en formación',
       stack: 'Datos, econometría y análisis con SQL, Python y R.',
+      w0: 'Análisis de datos', w1: 'Economía aplicada', w2: 'Finanzas',
+      w3: 'Investigación', w4: 'Toma de decisiones', w5: 'Econometría',
       orbShow: 'Mostrar mi información', orbHide: 'Ocultar mi información',
       aboutTitle: 'Sobre mí',
       aboutText: 'Estudio Economía en la Universidad Industrial de Santander y uso los datos para responder preguntas económicas con rigor y claridad. Me interesa pasar del dato crudo a una conclusión que sirva para decidir.',
@@ -24,6 +26,7 @@
       skill4Name: 'Git', skill4Text: 'Control de versiones y proyectos publicados en GitHub.',
       projectsTitle: 'Proyectos',
       cv: 'Descargar CV',
+      
     },
     en: {
       title: 'Data science portfolio',
@@ -33,6 +36,8 @@
       navAbout: 'About me', navProjects: 'Skills and projects', navContact: 'Contact',
       role: 'Economist in training',
       stack: 'Data, econometrics and analysis with SQL, Python and R.',
+      w0: 'Data analysis', w1: 'Applied economics', w2: 'Finance',
+      w3: 'Research', w4: 'Decision-making', w5: 'Econometrics',
       orbShow: 'Show my information', orbHide: 'Hide my information',
       aboutTitle: 'About me',
       aboutText: "I study Economics at Universidad Industrial de Santander and use data to answer economic questions with rigor and clarity. I'm interested in going from raw data to a conclusion that helps make decisions.",
