@@ -14,16 +14,19 @@
 <body>
 
   <header class="topbar">
-    <p class="site-name">Portafolio de ciencia de datos</p>
+  <p class="site-name" data-i18n="siteName">Portafolio de ciencia de datos</p>
+  <div class="topbar-right">
+    <button class="menu-btn lang-btn" id="langBtn" data-i18n-aria="langAria" aria-label="Cambiar idioma">EN</button>
     <div class="menu">
-      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menuPanel">Índice</button>
-      <nav class="menu-panel" id="menuPanel" aria-label="Índice" hidden>
-        <a href="#sobre-mi">Sobre mí</a>
-        <a href="#habilidades">Habilidades y proyectos</a>
-        <a href="#contacto">Contacto</a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menuPanel" data-i18n="menuBtn">Índice</button>
+      <nav class="menu-panel" id="menuPanel" data-i18n-aria="menuAria" aria-label="Índice" hidden>
+        <a href="#sobre-mi" data-i18n="navAbout">Sobre mí</a>
+        <a href="#habilidades" data-i18n="navProjects">Habilidades y proyectos</a>
+        <a href="#contacto" data-i18n="navContact">Contacto</a>
       </nav>
     </div>
-  </header>
+  </div>
+</header>
 
     <!-- PARTE 1: Inicio -->
   <section class="hero" id="inicio">
@@ -42,8 +45,8 @@
       </button>
       <div class="orb-info" id="orbInfo">
         <h1>Tu Nombre</h1>
-        <p class="role">Economista en formación</p>
-        <p class="stack">Datos, econometría y análisis con SQL, Python y R.</p>
+        <p class="role" data-i18n="role">Economista en formación</p>
+        <p class="stack" data-i18n="stack">Datos, econometría y análisis con SQL, Python y R.</p>
       </div>
     </div>
     <!-- Intro: fondo + aura + estrella-->
@@ -83,24 +86,24 @@
       <div class="about-spacer"></div>
 
       <div class="resume">
-        <h2 class="about-title">Sobre mí</h2>
+        <h2 class="about-title" data-i18n="aboutTitle">Sobre mí</h2>
 
-        <p>Estudio Economía en la Universidad Industrial de Santander y uso los datos para responder preguntas económicas con rigor y claridad. Me interesa pasar del dato crudo a una conclusión que sirva para decidir.</p>
+<p data-i18n="aboutText">Estudio Economía en la Universidad Industrial de Santander y uso los datos para responder preguntas económicas con rigor y claridad. Me interesa pasar del dato crudo a una conclusión que sirva para decidir.</p>
 
-        <dl>
-          <div>
-            <dt>Formación</dt>
-            <dd>Economía, Universidad Industrial de Santander</dd>
-          </div>
-          <div>
-            <dt>Herramientas</dt>
-            <dd>SQL, Python, R y Git</dd>
-          </div>
-          <div>
-            <dt>Intereses</dt>
-            <dd>Econometría, análisis de datos y economía aplicada</dd>
-          </div>
-        </dl>
+<dl>
+  <div>
+    <dt data-i18n="eduLabel">Formación</dt>
+    <dd data-i18n="edu">Economía, Universidad Industrial de Santander</dd>
+  </div>
+  <div>
+    <dt data-i18n="toolsLabel">Herramientas</dt>
+    <dd data-i18n="tools">SQL, Python, R y Git</dd>
+  </div>
+  <div>
+    <dt data-i18n="interestsLabel">Intereses</dt>
+    <dd data-i18n="interests">Econometría, análisis de datos y economía aplicada</dd>
+  </div>
+</dl>
       </div>
     </div>
   </div>
@@ -119,7 +122,7 @@
   <!-- PARTE 3: Mi perfil (la estrella) -->
   <section class="perfil" id="estrella">
     <div class="perfil-inner">
-      <h2 class="perfil-title">Mi perfil</h2>
+      <h2 class="perfil-title" data-i18n="profileTitle">Mi perfil</h2>
       <div class="perfil-grid">
         <div class="star-view" id="starView">
           <div class="star-zoom">
@@ -153,7 +156,7 @@
               <button class="tip" data-skill="0" tabindex="-1" aria-hidden="true" style="left:50.0%;top:6.0%">SQL</button>
               <button class="tip" data-skill="1" tabindex="-1" aria-hidden="true" style="left:91.8%;top:36.4%">Python</button>
               <button class="tip" data-skill="2" tabindex="-1" aria-hidden="true" style="left:75.9%;top:85.6%">R</button>
-              <button class="tip" data-skill="3" tabindex="-1" aria-hidden="true" style="left:24.1%;top:85.6%">Econometría</button>
+              <button class="tip" data-skill="3" data-i18n="skill3Name" tabindex="-1" aria-hidden="true" style="left:24.1%;top:85.6%">Econometría</button>
               <button class="tip" data-skill="4" tabindex="-1" aria-hidden="true" style="left:8.2%;top:36.4%">Git</button>
             </div>
           </div>
@@ -173,7 +176,7 @@
   <!-- PARTE 4: Proyectos -->
   <section class="proyectos" id="habilidades">
     <div class="proyectos-inner">
-      <h2 class="proyectos-title">Proyectos</h2>
+      <h2 class="proyectos-title" data-i18n="projectsTitle">Proyectos</h2>
       <div class="proyectos-grid">
         <a class="proyecto" href="#" style="--i:0"><h3>SQL</h3></a>
         <a class="proyecto" href="#" style="--i:1"><h3>Python</h3></a>
@@ -187,7 +190,7 @@
 <section class="banner" id="contacto">
   <div class="banner-inner">
     <div class="banner-panel panel-azul">
-      <a class="cv-btn" href="./CV.pdf" download>Descargar CV <span aria-hidden="true">↓</span></a>
+      <a class="cv-btn" id="cvLink" href="./CV.pdf" download><span data-i18n="cv">Descargar CV</span> <span aria-hidden="true">↓</span></a>
     </div>
     <div class="banner-panel panel-rojo"></div>
     <div class="banner-panel panel-crema"></div>
