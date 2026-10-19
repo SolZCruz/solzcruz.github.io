@@ -457,7 +457,7 @@ button {
 
   background-image: url("./fotoA.png");
   background-size: auto 100%;
-  background-position: 0,05vw center;  
+  background-position: -5vw center;  
   background-repeat: no-repeat;
 }
 
