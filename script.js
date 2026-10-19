@@ -85,7 +85,9 @@ function selectSkill(i) {
     if (el.classList.contains('chip')) el.setAttribute('aria-pressed', on);
   });
 }
- 
+
+document.addEventListener('langchange', renderSkill);
+
 document.querySelectorAll('[data-skill]').forEach((el) =>
   el.addEventListener('click', () => selectSkill(Number(el.dataset.skill))));
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && current !== null) selectSkill(current); });
@@ -243,78 +245,4 @@ liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res
 liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 22, scale: 45, res: 220, blur: 3, sat: 1.3, bri: 1 });
 
 
-// ---------- Idioma ----------
-const i18n = {
-  es: {
-    title: 'Portafolio de ciencia de datos',
-    langAria: 'Cambiar idioma',
-    siteName: 'Portafolio de ciencia de datos',
-    menuBtn: 'Índice', menuAria: 'Índice',
-    navAbout: 'Sobre mí', navProjects: 'Habilidades y proyectos', navContact: 'Contacto',
-    role: 'Economista en formación',
-    stack: 'Datos, econometría y análisis con SQL, Python y R.',
-    orbShow: 'Mostrar mi información', orbHide: 'Ocultar mi información',
-    aboutTitle: 'Sobre mí',
-    aboutText: 'Estudio Economía en la Universidad Industrial de Santander y uso los datos para responder preguntas económicas con rigor y claridad. Me interesa pasar del dato crudo a una conclusión que sirva para decidir.',
-    eduLabel: 'Formación', edu: 'Economía, Universidad Industrial de Santander',
-    toolsLabel: 'Herramientas', tools: 'SQL, Python, R y Git',
-    interestsLabel: 'Intereses', interests: 'Econometría, análisis de datos y economía aplicada',
-    profileTitle: 'Mi perfil',
-    skillDefaultTitle: 'Economista en formación',
-    skillDefaultText: 'Convierto datos en decisiones. Elige un punto de la estrella para ver cada habilidad.',
-    skill0Name: 'SQL', skill0Text: 'Consultas, limpieza de datos e indicadores de negocio.',
-    skill1Name: 'Python', skill1Text: 'Análisis de datos con pandas y visualización de resultados.',
-    skill2Name: 'R', skill2Text: 'Modelos estadísticos y análisis econométrico.',
-    skill3Name: 'Econometría', skill3Text: 'Regresión, datos de panel y pruebas de hipótesis.',
-    skill4Name: 'Git', skill4Text: 'Control de versiones y proyectos publicados en GitHub.',
-    projectsTitle: 'Proyectos',
-    cv: 'Descargar CV',
-  },
-  en: {
-    title: 'Data science portfolio',
-    langAria: 'Change language',
-    siteName: 'Data science portfolio',
-    menuBtn: 'Menu', menuAria: 'Menu',
-    navAbout: 'About me', navProjects: 'Skills and projects', navContact: 'Contact',
-    role: 'Economist in training',
-    stack: 'Data, econometrics and analysis with SQL, Python and R.',
-    orbShow: 'Show my information', orbHide: 'Hide my information',
-    aboutTitle: 'About me',
-    aboutText: "I study Economics at Universidad Industrial de Santander and use data to answer economic questions with rigor and clarity. I'm interested in going from raw data to a conclusion that helps make decisions.",
-    eduLabel: 'Education', edu: 'Economics, Universidad Industrial de Santander',
-    toolsLabel: 'Tools', tools: 'SQL, Python, R and Git',
-    interestsLabel: 'Interests', interests: 'Econometrics, data analysis and applied economics',
-    profileTitle: 'My profile',
-    skillDefaultTitle: 'Economist in training',
-    skillDefaultText: 'I turn data into decisions. Pick a point on the star to see each skill.',
-    skill0Name: 'SQL', skill0Text: 'Queries, data cleaning and business metrics.',
-    skill1Name: 'Python', skill1Text: 'Data analysis with pandas and results visualization.',
-    skill2Name: 'R', skill2Text: 'Statistical models and econometric analysis.',
-    skill3Name: 'Econometrics', skill3Text: 'Regression, panel data and hypothesis testing.',
-    skill4Name: 'Git', skill4Text: 'Version control and projects published on GitHub.',
-    projectsTitle: 'Projects',
-    cv: 'Download CV',
-  },
-};
 
-let lang = localStorage.getItem('lang') || 'es';
-function t(key) { return i18n[lang][key]; }
-
-const langBtn = document.getElementById('langBtn');
-const cvLink = document.getElementById('cvLink');
-
-function applyLang(l) {
-  lang = l;
-  localStorage.setItem('lang', l);
-  document.documentElement.lang = l;
-  document.title = t('title');
-  document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
-  document.querySelectorAll('[data-i18n-aria]').forEach((el) => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
-  orb.setAttribute('aria-label', hero.classList.contains('is-open') ? t('orbHide') : t('orbShow'));
-  langBtn.textContent = l === 'es' ? 'EN' : 'ES';
-  cvLink.href = l === 'es' ? './CV.pdf' : './CV-en.pdf';
-  renderSkill();
-}
-
-langBtn.addEventListener('click', () => applyLang(lang === 'es' ? 'en' : 'es'));
-applyLang(lang);
