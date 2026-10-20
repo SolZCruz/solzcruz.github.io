@@ -8,8 +8,24 @@
 
 @font-face {
   font-family: "Neue Montreal";
+  src: url("./fonts/NeueMontreal-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./fonts/NeueMontreal-ExtraBold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
   src: url("./fonts/NeueMontreal-SemiBold.otf") format("opentype");
-  font-weight: 600;
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
@@ -1063,17 +1079,17 @@ html.intro-lock body { touch-action: none; }
   }
 }
 
-/* Títulos de sección: SemiBold */
+/* Títulos de sección: ExtraBold */
 .about-title,
 .perfil-title {
   font-family: var(--nombre, "Neue Montreal", "Helvetica Neue", Arial, sans-serif);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* Títulos de la tarjeta de la estrella: SemiBold */
 .skill-card h3 {
   font-family: var(--nombre, "Neue Montreal", "Helvetica Neue", Arial, sans-serif);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Textos y nombres de la estrella: Light */
