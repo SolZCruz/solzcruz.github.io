@@ -1028,11 +1028,14 @@ html.intro-lock body { touch-action: none; }
   }
 }
 
-/* Texto justificado: Sobre mí y descripción de la estrella */
+/* Texto justificado, sin partir palabras */
 .resume p,
 .skill-card p {
-  -webkit-hyphens: auto;
-  hyphens: auto;
+  -webkit-hyphens: none;
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: normal;
+  text-wrap: pretty;
 }
 
 @media (min-width: 701px) {
