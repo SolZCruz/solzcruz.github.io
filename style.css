@@ -1129,3 +1129,22 @@ html.intro-lock body { touch-action: none; }
 .palabra {
   font-weight: 600;
 }
+
+
+/* Portada: fondo negro; las manchas pasan de rojo (lejos) a azul (cerca del cursor) */
+.hero { background: #000; }
+
+.hero .blob { --near: 0; opacity: calc(var(--op) * (1 - var(--near))); }
+.hero .blob.azul { opacity: calc(var(--op) * var(--near)); }
+
+.hero .b1 { --op: .85; background: #C1121F; }
+.hero .b1.azul { background: #669BBC; }
+
+.hero .b2 { --op: .75; background: #E0202E; }
+.hero .b2.azul { background: #4D8FD0; }
+
+.hero .b3 { --op: .9; background: #780000; }
+.hero .b3.azul { background: #1B5E9E; }
+
+.hero .b4 { --op: .5; background: #FF6B78; }
+.hero .b4.azul { background: #BFE0FF; }
