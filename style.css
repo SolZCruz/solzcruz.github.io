@@ -6,6 +6,23 @@
   font-display: block;
 }
 
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./fonts/NeueMontreal-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Light con otro nombre: así la negrilla se aplica sobre la Light y no cambia a la Bold real */
+@font-face {
+  font-family: "Neue Montreal Light";
+  src: url("./fonts/NeueMontreal-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ==================================================
    1. VARIABLES Y CONFIGURACIÓN GENERAL
 ================================================== */
@@ -1044,4 +1061,33 @@ html.intro-lock body { touch-action: none; }
     text-align: justify;
     text-justify: inter-word;
   }
+}
+
+/* Títulos de sección: SemiBold */
+.about-title,
+.perfil-title {
+  font-family: var(--nombre, "Neue Montreal", "Helvetica Neue", Arial, sans-serif);
+  font-weight: 600;
+}
+
+/* Títulos de la tarjeta de la estrella: SemiBold */
+.skill-card h3 {
+  font-family: var(--nombre, "Neue Montreal", "Helvetica Neue", Arial, sans-serif);
+  font-weight: 600;
+}
+
+/* Textos y nombres de la estrella: Light */
+.resume p,
+.resume dd,
+.skill-card p,
+.tip {
+  font-family: var(--nombre, "Neue Montreal", "Helvetica Neue", Arial, sans-serif);
+  font-weight: 300;
+}
+
+/* Formación, Herramientas, Intereses: Light con negrilla */
+.resume dt {
+  font-family: "Neue Montreal Light", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  opacity: 1;
 }
