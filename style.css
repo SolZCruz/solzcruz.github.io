@@ -1107,3 +1107,25 @@ html.intro-lock body { touch-action: none; }
   font-weight: 700;
   opacity: 1;
 }
+
+/* Cursiva real de Neue Montreal: solo para el nombre */
+@font-face {
+  font-family: "Neue Montreal Italic";
+  src: url("./fonts/NeueMontreal-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+/* Nombre de la intro (y el de la esfera abierta): Italic */
+.hero-name,
+.orb-info h1 {
+  font-family: "Neue Montreal Italic", "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* Palabras en escalera: Regular (tu scale .9 1 se queda) */
+.palabra {
+  font-weight: 600;
+}
