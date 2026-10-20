@@ -1003,7 +1003,7 @@ html.intro-lock body { touch-action: none; }
   white-space: nowrap;
   font-family: var(--nombre, "Neue Montreal", "Helvetica Neue", Arial, sans-serif);
   font-weight: 300; line-height: .95; letter-spacing: -.03em;
-  font-size: clamp(2.4rem, min(7vw, 11vh), 5.5rem);
+  font-size: clamp(2.05rem, min(6vw, 9.4vh), 4.7rem);
   color: var(--crema); text-shadow: 0 4px 30px rgba(0, 0, 0, .35);
   opacity: 0;
   animation: palabra 24s ease-in-out calc(6.4s + var(--i) * 4s) infinite backwards;
