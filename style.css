@@ -1007,6 +1007,8 @@ html.intro-lock body { touch-action: none; }
   color: var(--crema); text-shadow: 0 4px 30px rgba(0, 0, 0, .35);
   opacity: 0;
   animation: palabra 24s ease-in-out calc(6.4s + var(--i) * 4s) infinite backwards;
+  scale: .9 1;
+  transform-origin: left center;
 }
 
 /* Cada palabra dura 4 s: 1,4 s entrando, 1,2 s quieta y 1,4 s saliendo */
