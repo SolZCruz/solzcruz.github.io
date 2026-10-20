@@ -1,8 +1,8 @@
 @font-face {
   font-family: "Neue Montreal";
-  src: url("./fonts/PPNeueMontrealText-Book.otf") format("opentype");
+  src: url("./fonts/PPNeueMontreal-Regular.otf") format("opentype");
   font-weight: 600;
-  font-style: italic;
+  font-style: normal;
   font-display: block;
 }
 
