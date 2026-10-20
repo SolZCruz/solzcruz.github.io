@@ -29,9 +29,9 @@
       
     },
     en: {
-      title: 'Portfolio',
+      title: 'Portfolio Sol Cruz',
       langAria: 'Language',
-      siteName: 'Portfolio',
+      siteName: 'Portfolio Sol Cruz',
       menuBtn: 'Menu', menuAria: 'Menu',
       navAbout: 'About me', navProjects: 'Skills and projects', navContact: 'Contact',
       role: 'Economist',
