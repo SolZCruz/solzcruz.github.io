@@ -15,7 +15,7 @@
       aboutText: 'Soy economista de la Universidad Industrial de Santander. Me interesa el análisis de la toma de decisiones de personas, empresas y gobiernos, y el uso de la evidencia, incluidos los datos, para proponer soluciones con fundamento. Me atraen la economía aplicada, la evaluación de políticas y el análisis para la toma de decisiones empresariales, y busco aplicarlos en consultoría, finanzas, política pública o investigación.',
       eduLabel: 'Formación complementaria', edu: 'Técnico en Contabilización de Operaciones Comerciales y Financieras',
       toolsLabel: 'Herramientas', tools: 'SQL, Python, R, Stata, Microsoft Office, Visualización: Power BI, Tableau',
-      interestsLabel: 'Idiomas', interests: 'Español, Inglés, Fránces',
+      interestsLabel: 'Idiomas', interests: 'Español, Inglés, Francés',
       profileTitle: 'Habilidades',
       skillDefaultTitle: 'Economista',
       skillDefaultText: 'Convierto datos en decisiones. Elige un punto de la estrella para ver cada habilidad.',
