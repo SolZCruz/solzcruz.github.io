@@ -41,27 +41,75 @@
   })();
 })();
 
-// ---------- Transiciones al deslizar ----------
+
+// ---------- Transiciones ligadas al scroll ----------
 (function () {
-  if (!('IntersectionObserver' in window)) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => {
-      if (!en.isIntersecting) return;
-      en.target.classList.add('in');
-      io.unobserve(en.target);
-    });
-  }, { threshold: 0.25 });
+  const clamp = (v) => Math.max(0, Math.min(1, v));
 
-  document.querySelectorAll('.about, .resume, .perfil, .perfil-title, .proyectos-title').forEach((el) => {
-    if (el.matches('.perfil-title, .proyectos-title')) el.classList.add('reveal');
-    io.observe(el);
+  // Textos y títulos: aparecen según suben en la pantalla
+  const textos = [...document.querySelectorAll(
+    '.about-title, .resume p, .resume dl > div, .perfil-title, .proyectos-title, .skill-card'
+  )];
+  textos.forEach((el) => {
+    el.setAttribute('data-sr', '');
+    el._p = 1;
+    el._dy = el.matches('.skill-card') ? 0 : 48;   // desplazamiento vertical que aplica el CSS
   });
 
-  // Solo se oculta algo si todo lo anterior funcionó
-  document.documentElement.classList.add('js');
+  const about = document.querySelector('.about');
+  const star = document.querySelector('.star-view');
+
+  // Destello blanco de pantalla completa
+  const flash = document.createElement('div');
+  flash.className = 'destello';
+  flash.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(flash);
+
+  function update() {
+    const H = window.innerHeight;
+
+    textos.forEach((el) => {
+      // posición real, descontando el desplazamiento que ya tiene aplicado
+      const top = el.getBoundingClientRect().top - (1 - el._p) * el._dy;
+      el._p = clamp((H * 0.95 - top) / (H * 0.4));
+      el.style.setProperty('--p', el._p.toFixed(3));
+    });
+
+    if (about) {
+      about.style.setProperty('--p', clamp((H - about.getBoundingClientRect().top) / H).toFixed(3));
+    }
+
+    if (star) {
+      const r = star.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const p = clamp((H * 1.5 - cy) / H);          // 0: asomando abajo, 1: en su lugar
+      const g = Math.sin(Math.PI * p);              // el destello sube y baja con el avance
+      star.style.setProperty('--p', p.toFixed(3));
+      flash.style.setProperty('--g', (g * g).toFixed(3));
+      flash.style.setProperty('--cx', cx + 'px');
+      flash.style.setProperty('--cy', cy + 'px');
+    }
+  }
+
+  let esperando = false;
+  const pedir = () => {
+    if (esperando) return;
+    esperando = true;
+    requestAnimationFrame(() => { esperando = false; update(); });
+  };
+
+  window.addEventListener('scroll', pedir, { passive: true });
+  window.addEventListener('resize', pedir);
+  window.addEventListener('load', pedir);
+  document.addEventListener('langchange', pedir);
+
+  update();
+  document.documentElement.classList.add('js');   // solo se oculta algo si todo lo anterior funcionó
 })();
+
 
 // ---------- Intro: sin scroll mientras dura ----------
 history.scrollRestoration = 'manual';
