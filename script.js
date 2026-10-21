@@ -55,11 +55,13 @@
   textos.forEach((el) => {
     el.setAttribute('data-sr', '');
     el._p = 1;
-    el._dy = el.matches('.skill-card') ? 0 : 48;   // desplazamiento vertical que aplica el CSS
+    el._dy = el.matches('.skill-card') ? 0 : (parseFloat(getComputedStyle(el).getPropertyValue('--dy')) || 48);
   });
 
   const about = document.querySelector('.about');
   const star = document.querySelector('.star-view');
+  const escena = document.getElementById('escenaEstrella');
+  const card = document.querySelector('.skill-card');
 
   // Destello blanco de pantalla completa
   const flash = document.createElement('div');
@@ -69,6 +71,8 @@
 
   function update() {
     const H = window.innerHeight;
+    const portada = document.getElementById('inicio');
+    if (portada) portada.style.setProperty('--hp', clamp(window.scrollY / H).toFixed(3));
 
     textos.forEach((el) => {
       // posición real, descontando el desplazamiento que ya tiene aplicado
@@ -81,19 +85,30 @@
       about.style.setProperty('--p', clamp((H - about.getBoundingClientRect().top) / H).toFixed(3));
     }
 
-    if (star) {
+        if (star) {
       const r = star.getBoundingClientRect();
       const cx = r.left + r.width / 2;
       const cy = r.top + r.height / 2;
-      const p = clamp((H * 1.5 - cy) / H);          // 0: asomando abajo, 1: en su lugar
-      const g = Math.sin(Math.PI * p);              // el destello sube y baja con el avance
+      let p, pCard = null;
+
+      if (escena && window.matchMedia('(min-width: 801px)').matches) {
+        const e = escena.getBoundingClientRect();
+        const s = clamp((H * 0.6 - e.top) / (e.height - H + H * 0.6));   // avance de la escena, de 0 a 1
+        p = clamp(s / 0.55);                // la estrella llega en el primer tramo
+        pCard = clamp((s - 0.45) / 0.4);    // la tarjeta se abre después
+      } else {
+        p = clamp((H * 1.5 - cy) / H);      // celular: como antes
+      }
+
+      const g = Math.sin(Math.PI * p);
       star.style.setProperty('--p', p.toFixed(3));
+      if (pCard !== null && card) { card._p = pCard; card.style.setProperty('--p', pCard.toFixed(3)); }
       flash.style.setProperty('--g', (g * g).toFixed(3));
       flash.style.setProperty('--cx', cx + 'px');
       flash.style.setProperty('--cy', cy + 'px');
     }
-  }
 
+    
   let esperando = false;
   const pedir = () => {
     if (esperando) return;
