@@ -857,7 +857,7 @@ button {
 @media (prefers-reduced-motion: reduce) { .proyecto { opacity: 1; } }
 
 .fondo-continuo {
-  position: relative; z-index: 1; overflow: hidden;
+  position: relative; z-index: 1; overflow: clip;
   margin-top: -3rem;
   background: var(--noche);
 
@@ -1158,14 +1158,20 @@ html.intro-lock body { touch-action: none; }
 /* Textos y títulos: suben apareciendo, desde desenfocados */
 .js [data-sr] {
   opacity: var(--p, 1);
-  transform: translateY(calc((1 - var(--p, 1)) * 48px));
+  transform: translateY(calc((1 - var(--p, 1)) * var(--dy, 48px)));
   filter: blur(calc((1 - var(--p, 1)) * 8px));
 }
+.about-title,
+.perfil-title,
+.proyectos-title      { --dy: 80px; }
+.resume p             { --dy: 56px; }
+.resume dl > div      { --dy: 32px; }
 
-/* Imagen de Sobre mí: entra desde la izquierda mientras sube la sección */
+
 .js .about-background {
-  opacity: var(--p, 1);
-  transform: translateX(calc((1 - var(--p, 1)) * -9vw)) scale(calc(1 + (1 - var(--p, 1)) * .12));
+  --q: calc(1 - var(--p, 1));
+  clip-path: inset(calc(var(--q) * 16%) calc(var(--q) * 16%) calc(var(--q) * 16%) calc(var(--q) * 16%) round calc(var(--q) * 3rem));
+  transform: scale(calc(1 + var(--q) * .18));
 }
 
 /* Estrella: llega girando y encogiéndose hasta su posición */
@@ -1200,4 +1206,25 @@ html.intro-lock body { touch-action: none; }
   background: radial-gradient(circle at var(--cx, 50%) var(--cy, 50%),
     #fff 0%, rgba(255, 255, 255, .85) 18%, rgba(255, 255, 255, .45) 42%, transparent 75%);
   opacity: calc(var(--g, 0) * .9);
+}
+
+.hero .field { transform: scale(calc(1 + var(--hp, 0) * .35)); }
+
+/* Escena fija de la estrella (solo en pantallas grandes) */
+.escena-estrella { position: relative; height: 230vh; }
+.escena-estrella .perfil {
+  position: sticky; top: 0;
+  min-height: 100svh;
+  display: flex; align-items: center;
+  padding-block: 4.5rem 2rem;
+}
+.escena-estrella .perfil-inner { width: 100%; }
+
+/* Que todo quepa en una pantalla */
+.escena-estrella .perfil-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 28rem); }
+.escena-estrella .star-view { width: min(100%, calc(100svh - 16rem)); margin-inline: auto; }
+
+@media (max-width: 800px) {
+  .escena-estrella { height: auto; }
+  .escena-estrella .perfil { position: relative; display: block; padding-block: clamp(5rem, 11vw, 8rem); }
 }
