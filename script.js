@@ -1,3 +1,47 @@
+// ---------- Portada: de lejos rojo, de cerca azul ----------
+(function () {
+  const portada = document.getElementById('inicio');
+  const campo = portada && portada.querySelector('.field');
+  if (!portada || !campo) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Crea la gemela azul de cada mancha si no está en el HTML
+  [1, 2, 3, 4].forEach((k) => {
+    if (campo.querySelector('.b' + k + '.azul')) return;
+    const rojo = campo.querySelector('.b' + k);
+    if (!rojo) return;
+    const azul = rojo.cloneNode(false);
+    azul.classList.add('azul');
+    rojo.after(azul);
+  });
+
+  const grupos = [1, 2, 3, 4].map((k) => [...campo.querySelectorAll('.b' + k)]);
+  const near = grupos.map(() => 0);
+  let px = -1e5, py = -1e5;
+
+  window.addEventListener('pointermove', (e) => { px = e.clientX; py = e.clientY; });
+  document.documentElement.addEventListener('mouseleave', () => { px = -1e5; py = -1e5; });
+
+  (function colorLoop() {
+    const r = portada.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < window.innerHeight) {
+      const radio = Math.hypot(r.width, r.height) * 0.4;   // a qué distancia empieza a notarse el azul
+
+      grupos.forEach((els, i) => {
+        const b = els[0].getBoundingClientRect();
+        const d = Math.hypot(px - (b.left + b.width / 2), py - (b.top + b.height / 2));
+        let t = Math.max(0, Math.min(1, 1 - d / radio));
+        t = t * t * (3 - 2 * t);
+        if (Math.abs(t - near[i]) < 0.002) return;
+        near[i] += (t - near[i]) * 0.06;
+        els.forEach((el) => el.style.setProperty('--near', near[i].toFixed(3)));
+      });
+    }
+    requestAnimationFrame(colorLoop);
+  })();
+})();
+
+
 // ---------- Intro: sin scroll mientras dura ----------
 history.scrollRestoration = 'manual';
 window.scrollTo({ top: 0, behavior: 'instant' });
@@ -245,28 +289,3 @@ liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res
 liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 22, scale: 45, res: 220, blur: 3, sat: 1.3, bri: 1 });
 
 
-// ---------- Portada: de lejos rojo, de cerca azul ----------
-if (!reduceMotion) {
-  const grupos = [1, 2, 3, 4].map((k) => [...hero.querySelectorAll('.b' + k)]);
-  const near = grupos.map(() => 0);
-  let px = -1e5, py = -1e5;
-
-  hero.addEventListener('pointermove', (e) => { px = e.clientX; py = e.clientY; });
-  hero.addEventListener('pointerleave', () => { px = -1e5; py = -1e5; });
-
-  (function colorLoop() {
-    const r = hero.getBoundingClientRect();
-    const radio = Math.hypot(r.width, r.height) * 0.4;   // a qué distancia empieza a notarse el azul
-
-    grupos.forEach((els, i) => {
-      const b = els[0].getBoundingClientRect();
-      const d = Math.hypot(px - (b.left + b.width / 2), py - (b.top + b.height / 2));
-      let t = Math.max(0, Math.min(1, 1 - d / radio));
-      t = t * t * (3 - 2 * t);                            // transición suave
-      if (Math.abs(t - near[i]) < 0.002) return;          // sin cambios, no gasta recursos
-      near[i] += (t - near[i]) * 0.06;
-      els.forEach((el) => el.style.setProperty('--near', near[i].toFixed(3)));
-    });
-    requestAnimationFrame(colorLoop);
-  })();
-}
