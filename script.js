@@ -41,6 +41,27 @@
   })();
 })();
 
+// ---------- Transiciones al deslizar ----------
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      en.target.classList.add('in');
+      io.unobserve(en.target);
+    });
+  }, { threshold: 0.25 });
+
+  document.querySelectorAll('.about, .resume, .perfil, .perfil-title, .proyectos-title').forEach((el) => {
+    if (el.matches('.perfil-title, .proyectos-title')) el.classList.add('reveal');
+    io.observe(el);
+  });
+
+  // Solo se oculta algo si todo lo anterior funcionó
+  document.documentElement.classList.add('js');
+})();
 
 // ---------- Intro: sin scroll mientras dura ----------
 history.scrollRestoration = 'manual';
