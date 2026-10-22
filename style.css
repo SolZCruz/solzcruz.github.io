@@ -1175,8 +1175,8 @@ html.intro-lock body { touch-action: none; }
 .js .tip { opacity: 0; }
 
 .js .star-view.tin .star-glass,
-.js .star-view.tin .star-3d { animation: tin 1.5s ease-out both; }
-.js .star-view.tin .tip     { animation: tin-tip 1.5s ease-out .5s both; }
+.js .star-view.tin .star-3d { animation: tin 1.5s ease-out .8s both; }
+.js .star-view.tin .tip     { animation: tin-tip 1.5s ease-out 1.3s both; }
 
 @keyframes tin {
   0%   { opacity: 0;  transform: scale(.45); }
@@ -1201,7 +1201,7 @@ html.intro-lock body { touch-action: none; }
   opacity: 0;
 }
 
-.js .star-view.tin::after { animation: destello-tin 1.1s ease-out both; }
+.js .star-view.tin::after { animation: destello-tin 1.1s ease-out .8s both; }
 @keyframes destello-tin {
   0%   { opacity: 0;  transform: scale(.2); }
   12%  { opacity: 1;  transform: scale(.9); }
