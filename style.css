@@ -108,9 +108,17 @@ button {
 }
 
 .site-name {
+  display: inline-block;
   margin: 0.6rem 0 0;
   font-size: 0.95rem;
   opacity: 0.8;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.site-name:hover,
+.site-name:focus-visible {
+  opacity: 1;
 }
 
 .menu {
