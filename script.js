@@ -8,11 +8,76 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 // Traducción segura (idioma.js la define)
 const tt = (k, d) => (typeof t === 'function' ? t(k) : d);
 
-// ---------- Intro: desbloquear el scroll al terminar ----------
+// ---------- Pantalla de carga: espera a que todo esté listo y luego inicia la intro ----------
 history.scrollRestoration = 'manual';
 window.scrollTo({ top: 0, behavior: 'instant' });
-if (reduceMotion) root.classList.remove('intro-lock');
-else setTimeout(() => root.classList.remove('intro-lock'), 5300);
+
+(function () {
+  const cargador = document.getElementById('cargador');
+  const barra = document.getElementById('cargaBarra');
+  const num = document.getElementById('cargaNum');
+
+  // Sin animaciones o sin pantalla de carga: todo se muestra directamente
+  if (reduceMotion || !cargador) {
+    root.classList.remove('loading', 'intro-lock');
+    if (cargador) cargador.classList.add('listo');
+    return;
+  }
+
+  function terminar() {
+    root.classList.remove('loading');                 // la intro arranca desde el principio
+    cargador.classList.add('listo');                  // la pantalla de carga se desvanece
+    setTimeout(() => cargador.remove(), 900);
+    setTimeout(() => root.classList.remove('intro-lock'), 5300);   // el scroll se libera al acabar la intro
+  }
+
+  // Qué hay que esperar
+  const fondo = getComputedStyle(document.querySelector('.about-background')).backgroundImage;
+  const urlFoto = (fondo.match(/url\(["']?(.*?)["']?\)/) || [])[1];
+
+  const tareas = [
+    document.readyState === 'complete'
+      ? Promise.resolve()
+      : new Promise((r) => window.addEventListener('load', r, { once: true })),
+    document.fonts.ready,
+    Promise.allSettled([
+      '300 1em "Neue Montreal"',
+      '500 1em "Neue Montreal"',
+      '600 1em "Neue Montreal"',
+      '700 1em "Neue Montreal"',
+      '1em "Neue Montreal Italic"',
+    ].map((f) => document.fonts.load(f))),
+  ];
+  if (urlFoto) {
+    tareas.push(new Promise((r) => {
+      const img = new Image();
+      img.onload = img.onerror = r;
+      img.src = urlFoto;
+    }));
+  }
+
+  let hechas = 0;
+  tareas.forEach((p) => Promise.resolve(p).catch(() => {}).then(() => { hechas++; }));
+
+  const inicio = performance.now();
+  let mostrado = 0;
+
+  (function ciclo(ahora) {
+    const objetivo = hechas / tareas.length;
+    mostrado += (objetivo - mostrado) * 0.08;
+
+    const listo = hechas === tareas.length && mostrado > 0.985 && ahora - inicio > 900;
+    const vencido = ahora - inicio > 9000;               // nunca se queda trabado
+
+    const t = (listo || vencido) ? 1 : Math.min(1, mostrado);
+    barra.style.setProperty('--c', t.toFixed(3));
+    num.textContent = Math.round(t * 100);
+
+    if (listo || vencido) { terminar(); return; }
+    requestAnimationFrame(ciclo);
+  })(performance.now());
+})();
+
 
 // ---------- Esfera: presionar para mostrar la información ----------
 const hero = document.getElementById('inicio');
