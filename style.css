@@ -1195,20 +1195,17 @@ html.intro-lock body { touch-action: none; }
 /* Destello: fogonazo con una cruz de luz */
 .js .star-view::after {
   content: ""; position: absolute; inset: -25%; z-index: 4; pointer-events: none;
-  background:
-    radial-gradient(circle, #fff 0%, rgba(255, 255, 255, .55) 16%, transparent 46%),
-    linear-gradient(90deg, transparent 15%, rgba(255, 255, 255, .95) 50%, transparent 85%) center / 100% 3px no-repeat,
-    linear-gradient(0deg, transparent 15%, rgba(255, 255, 255, .95) 50%, transparent 85%) center / 3px 100% no-repeat;
+  background: radial-gradient(circle, #fff 0%, rgba(255, 255, 255, .55) 16%, rgba(255, 255, 255, .18) 34%, transparent 56%);
   opacity: 0;
 }
+
 .js .star-view.tin::after { animation: destello-tin 1.1s ease-out both; }
 @keyframes destello-tin {
-  0%   { opacity: 0;  transform: scale(.2) rotate(0deg); }
-  12%  { opacity: 1;  transform: scale(.9) rotate(20deg); }
-  35%  { opacity: .9; transform: scale(1.1) rotate(45deg); }
-  100% { opacity: 0;  transform: scale(1.5) rotate(60deg); }
+  0%   { opacity: 0;  transform: scale(.2); }
+  12%  { opacity: 1;  transform: scale(.9); }
+  35%  { opacity: .9; transform: scale(1.1); }
+  100% { opacity: 0;  transform: scale(1.5); }
 }
-
 /* ---- Menos espacio entre la estrella y Proyectos ---- */
 .perfil { padding-bottom: clamp(1rem, 3vw, 2rem); }
 .proyectos {
