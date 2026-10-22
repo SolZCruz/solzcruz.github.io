@@ -1301,3 +1301,47 @@ html.intro-lock body { touch-action: none; }
 @media (max-width: 900px) and (min-width: 521px) {
   .proyecto:last-child { grid-column: 1 / -1; }
 }
+
+/* ==================================================
+   PANTALLA DE CARGA
+================================================== */
+
+/* Mientras carga, la intro y todas las animaciones esperan en su primer cuadro */
+html.loading *,
+html.loading *::before,
+html.loading *::after { animation-play-state: paused !important; }
+
+/* Salvo las de la propia pantalla de carga */
+html.loading .cargador,
+html.loading .cargador *,
+html.loading .cargador *::before,
+html.loading .cargador *::after { animation-play-state: running !important; }
+
+.cargador {
+  position: fixed; inset: 0; z-index: 1000;
+  display: grid; place-content: center; justify-items: center; gap: 1.6rem;
+  background: #000;
+  transition: opacity .6s ease, visibility .6s;
+}
+.cargador.listo { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.cargador-estrella {
+  width: clamp(4.5rem, 12vmin, 7rem); aspect-ratio: 1;
+  filter: drop-shadow(0 0 24px rgba(193, 18, 31, .6));
+  animation: cargador-giro 3s linear infinite, cargador-latido 1.6s ease-in-out infinite;
+}
+@keyframes cargador-giro   { to { rotate: 360deg; } }
+@keyframes cargador-latido { 50% { scale: 1.12; } }
+
+.cargador-linea { width: min(60vw, 18rem); height: 1px; background: rgba(255, 255, 255, .2); overflow: hidden; }
+.cargador-linea span {
+  display: block; height: 100%; background: #fff;
+  transform-origin: left; transform: scaleX(var(--c, 0));
+}
+.cargador-num {
+  font: 300 .9rem/1 "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: .2em; color: rgba(253, 240, 213, .8);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) { .cargador { display: none; } }
