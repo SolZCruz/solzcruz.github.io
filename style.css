@@ -1259,13 +1259,13 @@ html.intro-lock body { touch-action: none; }
   position: relative; display: block;
   height: clamp(7.5rem, 11vw, 10rem);
   border-radius: 20px; overflow: hidden; text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, .28);
+  border: 1px solid rgba(102, 155, 188, .5);
   box-shadow: 0 12px 30px rgba(0, 0, 0, .35);
 }
 .mapa iframe {
   display: block; width: 100%; height: 100%; border: 0;
   pointer-events: none;   /* el clic lo recibe el enlace, así el mapa no atrapa el scroll */
-  filter: invert(1) hue-rotate(180deg) brightness(.9) contrast(.95) saturate(.7);
+  filter: grayscale(1) invert(1) sepia(1) hue-rotate(165deg) saturate(1.8) brightness(.95) contrast(1.05);
 }
 .mapa-etiqueta {
   position: absolute; left: .6rem; bottom: .6rem;
@@ -1278,3 +1278,22 @@ html.intro-lock body { touch-action: none; }
 }
 .mapa:hover .mapa-etiqueta,
 .mapa:focus-visible .mapa-etiqueta { background: rgba(0, 0, 0, .75); }
+
+
+/* Punto rojo sobre la ciudad */
+.mapa-pin {
+  position: absolute; left: 50%; top: 50%; z-index: 2;
+  width: 14px; height: 14px; translate: -50% -50%;
+  border-radius: 50%; pointer-events: none;
+  background: #E0202E;
+  box-shadow: 0 0 0 4px rgba(224, 32, 46, .3), 0 0 18px 6px rgba(224, 32, 46, .55);
+}
+.mapa-pin::after {
+  content: ""; position: absolute; inset: -4px; border-radius: 50%;
+  border: 1px solid rgba(224, 32, 46, .85);
+  animation: pin-pulso 2.4s ease-out infinite;
+}
+@keyframes pin-pulso {
+  from { transform: scale(1);   opacity: 1; }
+  to   { transform: scale(3.2); opacity: 0; }
+}
