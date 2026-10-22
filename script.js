@@ -110,12 +110,12 @@ if (!reduceMotion) {
 
     textos.forEach((el) => {
       const top = el.getBoundingClientRect().top;
-      el.style.setProperty('--p', clamp((H * 0.95 - top) / (H * 0.4)).toFixed(3));
+      el.style.setProperty('--p', clamp((H - top) / (H * 0.3)).toFixed(3));
     });
 
     // La imagen baja desde arriba mientras la sección sube
     if (sobreMi) {
-      sobreMi.style.setProperty('--p', clamp((H - sobreMi.getBoundingClientRect().top) / H).toFixed(3));
+      sobreMi.style.setProperty('--p', clamp((H - sobreMi.getBoundingClientRect().top) / (H * 0.7)).toFixed(3));
     }
   }
 
