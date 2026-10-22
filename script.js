@@ -365,3 +365,8 @@ tarjetas.forEach((el) =>
 liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res: 160, blur: 1, sat: 3, bri: 1 });
 liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 22, scale: 45, res: 220, blur: 3, sat: 1.3, bri: 1 });
 
+// El nombre de la esquina lleva al inicio sin cambiar la dirección
+document.querySelector('.site-name').addEventListener('click', (e) => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+});
