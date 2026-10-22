@@ -901,7 +901,7 @@ button {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 2.5rem;
 }
 
 /* Botones del CV */
@@ -953,7 +953,6 @@ button {
     width: 100%;
     max-width: 22rem;
     margin-inline: auto;
-    gap: 2.5rem;
   }
 
   .cv-btn {
