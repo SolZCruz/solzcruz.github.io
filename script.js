@@ -136,10 +136,10 @@ if (!reduceMotion) {
   if (estrella && 'IntersectionObserver' in window) {
     const ioEstrella = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
-        if (en.intersectionRatio >= 0.5) en.target.classList.add('tin');
+        if (en.intersectionRatio >= 0.4) en.target.classList.add('tin');
         else if (en.intersectionRatio === 0) en.target.classList.remove('tin');
       });
-    }, { threshold: [0, 0.5] });
+    }, { threshold: [0, 0.4] });
     ioEstrella.observe(estrella);
   } else if (estrella) {
     estrella.classList.add('tin');
