@@ -953,6 +953,7 @@ button {
     width: 100%;
     max-width: 22rem;
     margin-inline: auto;
+    gap: 2.5rem;
   }
 
   .cv-btn {
