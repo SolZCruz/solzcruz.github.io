@@ -1241,3 +1241,40 @@ html.intro-lock body { touch-action: none; }
 .contacto a { text-decoration: none; }
 .contacto dd a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .wa-btn { justify-self: start; padding: .7rem 1.4rem; font-size: .95rem; }
+
+/* ---------- Ubicación (panel negro) ---------- */
+.panel-negro { place-items: center start; }
+
+.ubicacion { width: 100%; display: grid; gap: 1.2rem; color: var(--crema); }
+.ubicacion h2 {
+  margin: 0;
+  font-family: var(--nombre); font-weight: 700;
+  line-height: .95; letter-spacing: -.04em;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  translate: 0 -1rem;
+}
+
+/* El mapa, dentro de su recuadro */
+.mapa {
+  position: relative; display: block;
+  height: clamp(7.5rem, 11vw, 10rem);
+  border-radius: 20px; overflow: hidden; text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, .28);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .35);
+}
+.mapa iframe {
+  display: block; width: 100%; height: 100%; border: 0;
+  pointer-events: none;   /* el clic lo recibe el enlace, así el mapa no atrapa el scroll */
+  filter: invert(1) hue-rotate(180deg) brightness(.9) contrast(.95) saturate(.7);
+}
+.mapa-etiqueta {
+  position: absolute; left: .6rem; bottom: .6rem;
+  padding: .3rem .75rem; border-radius: 999px;
+  font-family: var(--nombre); font-weight: 300; font-size: .8rem; letter-spacing: .06em;
+  color: var(--crema);
+  background: rgba(0, 0, 0, .55); border: 1px solid rgba(255, 255, 255, .25);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  transition: background .3s;
+}
+.mapa:hover .mapa-etiqueta,
+.mapa:focus-visible .mapa-etiqueta { background: rgba(0, 0, 0, .75); }
