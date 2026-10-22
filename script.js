@@ -93,71 +93,29 @@ if (!reduceMotion) {
   })();
 }
 
-// ---------- Transiciones ligadas al scroll ----------
+// ---------- Transiciones: Sobre mí (al deslizar) y estrella (parpadeo) ----------
 (function () {
   if (reduceMotion) return;
 
   const clamp = (v) => Math.max(0, Math.min(1, v));
 
-  const textos = [...document.querySelectorAll(
-    '.about-title, .resume p, .resume dl > div, .perfil-title, .proyectos-title, .skill-card'
-  )];
-  textos.forEach((el) => {
-    el.setAttribute('data-sr', '');
-    el._p = 1;
-    el._dy = el.matches('.skill-card') ? 0 : (parseFloat(getComputedStyle(el).getPropertyValue('--dy')) || 48);
-  });
+  // Sobre mí: textos que se revelan según suben por la pantalla
+  const textos = [...document.querySelectorAll('.about-title, .resume p, .resume dl > div')];
+  textos.forEach((el) => el.setAttribute('data-sr', ''));
 
   const sobreMi = document.querySelector('.about');
-  const star = document.querySelector('.star-view');
-  const escena = document.getElementById('escenaEstrella');
-  const card = document.querySelector('.skill-card');
-
-  // Destello blanco de pantalla completa
-  const flash = document.createElement('div');
-  flash.className = 'destello';
-  flash.setAttribute('aria-hidden', 'true');
-  document.body.appendChild(flash);
 
   function update() {
     const H = window.innerHeight;
 
-    hero.style.setProperty('--hp', clamp(window.scrollY / H).toFixed(3));
-
     textos.forEach((el) => {
-      const top = el.getBoundingClientRect().top - (1 - el._p) * el._dy;
-      el._p = clamp((H * 0.95 - top) / (H * 0.4));
-      el.style.setProperty('--p', el._p.toFixed(3));
+      const top = el.getBoundingClientRect().top;
+      el.style.setProperty('--p', clamp((H * 0.95 - top) / (H * 0.4)).toFixed(3));
     });
 
+    // La imagen baja desde arriba mientras la sección sube
     if (sobreMi) {
       sobreMi.style.setProperty('--p', clamp((H - sobreMi.getBoundingClientRect().top) / H).toFixed(3));
-    }
-
-    if (star) {
-      const r = star.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height / 2;
-      let p, pCard = null;
-
-      if (escena && window.matchMedia('(min-width: 801px)').matches) {
-        const e = escena.getBoundingClientRect();
-        const s = clamp((H * 0.6 - e.top) / (e.height - H + H * 0.6));
-        p = clamp(s / 0.55);
-        pCard = clamp((s - 0.45) / 0.4);
-      } else {
-        p = clamp((H * 1.5 - cy) / H);
-      }
-
-      const g = Math.sin(Math.PI * p);
-      star.style.setProperty('--p', p.toFixed(3));
-      if (pCard !== null && card) {
-        card._p = pCard;
-        card.style.setProperty('--p', pCard.toFixed(3));
-      }
-      flash.style.setProperty('--g', (g * g).toFixed(3));
-      flash.style.setProperty('--cx', cx + 'px');
-      flash.style.setProperty('--cy', cy + 'px');
     }
   }
 
@@ -172,6 +130,20 @@ if (!reduceMotion) {
   window.addEventListener('resize', pedir);
   window.addEventListener('load', pedir);
   document.addEventListener('langchange', pedir);
+
+  // Estrella: el parpadeo se dispara al entrar en pantalla y se repite al volver
+  const estrella = document.querySelector('.star-view');
+  if (estrella && 'IntersectionObserver' in window) {
+    const ioEstrella = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.intersectionRatio >= 0.35) en.target.classList.add('tin');
+        else if (en.intersectionRatio === 0) en.target.classList.remove('tin');
+      });
+    }, { threshold: [0, 0.35] });
+    ioEstrella.observe(estrella);
+  } else if (estrella) {
+    estrella.classList.add('tin');
+  }
 
   update();
   root.classList.add('js');
