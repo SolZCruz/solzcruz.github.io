@@ -894,25 +894,74 @@ button {
 .panel-rojo  { place-items: center start; }
 
 /* Botón del CV */
-.cv-btn {
-  display: inline-flex; align-items: center; gap: .6rem;
-  padding: .9rem 1.8rem; border-radius: 999px; text-decoration: none;
-  font-family: var(--display); font-weight: 800; font-size: clamp(1rem, 1.6vw, 1.2rem);
-  color: var(--noche);
-  background: rgba(255, 255, 255, .55); border: 1px solid rgba(255, 255, 255, .85);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, .2), inset 0 1px 0 #fff;
-  transition: translate .4s cubic-bezier(.2, .8, .2, 1), background .3s, box-shadow .3s;
-}
-.cv-btn:hover, .cv-btn:focus-visible {
-  translate: 0 -3px; background: rgba(255, 255, 255, .8);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, .28), inset 0 1px 0 #fff;
+
+/* Contenedor de los botones del CV */
+.cv-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-@media (max-width: 700px) {
-  .banner-inner { grid-template-columns: 1fr; }
-  .banner-panel { min-height: 12rem; }
-  .banner-panel + .banner-panel { border-left: 0; border-top: 1px solid rgba(255, 255, 255, .3); }
+/* Botones del CV */
+.cv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+
+  padding: .9rem 1.8rem;
+  border-radius: 999px;
+  text-decoration: none;
+
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+
+  color: var(--noche);
+  background: rgba(255, 255, 255, .55);
+  border: 1px solid rgba(255, 255, 255, .85);
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, .2),
+    inset 0 1px 0 #fff;
+
+  transition:
+    translate .4s cubic-bezier(.2, .8, .2, 1),
+    background .3s,
+    box-shadow .3s;
 }
+
+/* Efecto al pasar el cursor */
+.cv-btn:hover,
+.cv-btn:focus-visible {
+  translate: 0 -3px;
+  background: rgba(255, 255, 255, .8);
+
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, .28),
+    inset 0 1px 0 #fff;
+}
+
+/* Adaptación para móviles */
+@media (max-width: 700px) {
+
+  .cv-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 22rem;
+    margin-inline: auto;
+  }
+
+  .cv-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+}
+
 
 /* ---------- Intro: estrella y nombre ---------- */
 .intro-star {
