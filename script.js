@@ -108,8 +108,9 @@
       flash.style.setProperty('--cy', cy + 'px');
     }
 
-    
+  }   
   let esperando = false;
+    
   const pedir = () => {
     if (esperando) return;
     esperando = true;
@@ -245,18 +246,7 @@ glassHost.setAttribute('height', '0');
 glassHost.style.cssText = 'position:absolute;pointer-events:none';
 document.body.appendChild(glassHost);
 
-function liquidGlass(el, { sdf, bezel, scale, res = 160, blur = 1.5 }) {
-  if (!isChromium) return;
-  const id = 'lg-' + Math.random().toString(36).slice(2, 8);
-  const pass = (k, ch) =>
-    `<feDisplacementMap in="SourceGraphic" in2="map" scale="${(scale * k).toFixed(1)}" xChannelSelector="R" yChannelSelector="G" result="d${ch}"/>` +
-    `<feColorMatrix in="d${ch}" type="matrix" values="${ch === 'r' ? '1 0 0 0 0' : '0 0 0 0 0'} ${ch === 'g' ? '0 1 0 0 0' : '0 0 0 0 0'} ${ch === 'b' ? '0 0 1 0 0' : '0 0 0 0 0'} 0 0 0 1 0" result="${ch}"/>`;
-  glassHost.insertAdjacentHTML('beforeend',
-    `<filter id="${id}" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">` +
-    `<feImage result="map" x="0" y="0" width="100%" height="100%" preserveAspectRatio="none"/>` +
-    pass(1, 'r') + pass(1.07, 'g') + pass(1.14, 'b') +
-    `<feBlend in="r" in2="g" mode="screen" result="rg"/><feBlend in="rg" in2="b" mode="screen"/></filter>`);
-  const feImage = glassHost.querySelector(`#${id} feImage`);
+
 
   function build() {
     const w = el.offsetWidth, h = el.offsetHeight;
@@ -294,6 +284,29 @@ function liquidGlass(el, { sdf, bezel, scale, res = 160, blur = 1.5 }) {
   new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(build); }).observe(el);
 }
 
+// Distancia al borde (positiva dentro) de la estrella, a partir de su contorno real
+function starSdf() {
+  const p = document.createElementNS(SVGNS, 'path');
+  p.setAttribute('d', document.getElementById('starPath').getAttribute('d'));
+  glassHost.appendChild(p);
+  const n = 240, len = p.getTotalLength(), pts = [];
+  for (let i = 0; i < n; i++) { const q = p.getPointAtLength((len * i) / n); pts.push([q.x, q.y]); }
+  glassHost.removeChild(p);
+  return (x, y, w, h) => {
+    const X = (x / w) * 100, Y = (y / h) * 100;
+    let best = 1e9, inside = false;
+    for (let i = 0, j = n - 1; i < n; j = i++) {
+      const [ax, ay] = pts[j], [bx, by] = pts[i];
+      if ((ay > Y) !== (by > Y) && X < ((bx - ax) * (Y - ay)) / (by - ay) + ax) inside = !inside;
+      const dx = bx - ax, dy = by - ay;
+      const t = Math.max(0, Math.min(1, ((X - ax) * dx + (Y - ay) * dy) / (dx * dx + dy * dy || 1)));
+      const ex = ax + t * dx - X, ey = ay + t * dy - Y;
+      const dd = ex * ex + ey * ey;
+      if (dd < best) best = dd;
+    }
+    return (inside ? 1 : -1) * Math.sqrt(best) * (w / 100);
+  };
+}
 
 // Distancia al borde (positiva dentro) de un rectángulo con esquinas redondeadas
 const roundedSdf = (r) => (x, y, w, h) => {
