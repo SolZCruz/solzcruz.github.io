@@ -26,6 +26,7 @@
       skill4Name: 'Análisis estrátegico', skill4Text: 'Evaluación de información, alternativas y factores contextuales para identificar oportunidades, valorar posibles resultados y apoyar la toma de decisiones informadas.',
       projectsTitle: 'Proyectos',
       cv: 'Descargar CV',
+      contactTitle: 'Contacto', emailLabel: 'Correo', phoneLabel: 'Teléfono', waBtn: 'Escribir por WhatsApp',
       
     },
     en: {
@@ -54,6 +55,7 @@
       skill4Name: 'Strategic Analysis', skill4Text: 'Evaluation of information, alternatives, and contextual factors to identify opportunities, assess potential outcomes, and support informed decision-making.',
       projectsTitle: 'Projects',
       cv: 'Download CV',
+      contactTitle: 'Contact', emailLabel: 'Email', phoneLabel: 'Phone', waBtn: 'Chat on WhatsApp',
     },
   };
 
