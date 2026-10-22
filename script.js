@@ -1,140 +1,18 @@
-// ---------- Portada: de lejos rojo, de cerca azul ----------
-(function () {
-  const portada = document.getElementById('inicio');
-  const campo = portada && portada.querySelector('.field');
-  if (!portada || !campo) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+// =====================================================
+// script.js completo
+// =====================================================
 
-  // Crea la gemela azul de cada mancha si no está en el HTML
-  [1, 2, 3, 4].forEach((k) => {
-    if (campo.querySelector('.b' + k + '.azul')) return;
-    const rojo = campo.querySelector('.b' + k);
-    if (!rojo) return;
-    const azul = rojo.cloneNode(false);
-    azul.classList.add('azul');
-    rojo.after(azul);
-  });
+const root = document.documentElement;
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const grupos = [1, 2, 3, 4].map((k) => [...campo.querySelectorAll('.b' + k)]);
-  const near = grupos.map(() => 0);
-  let px = -1e5, py = -1e5;
+// Traducción segura (idioma.js la define)
+const tt = (k, d) => (typeof t === 'function' ? t(k) : d);
 
-  window.addEventListener('pointermove', (e) => { px = e.clientX; py = e.clientY; });
-  document.documentElement.addEventListener('mouseleave', () => { px = -1e5; py = -1e5; });
-
-  (function colorLoop() {
-    const r = portada.getBoundingClientRect();
-    if (r.bottom > 0 && r.top < window.innerHeight) {
-      const radio = Math.hypot(r.width, r.height) * 0.4;   // a qué distancia empieza a notarse el azul
-
-      grupos.forEach((els, i) => {
-        const b = els[0].getBoundingClientRect();
-        const d = Math.hypot(px - (b.left + b.width / 2), py - (b.top + b.height / 2));
-        let t = Math.max(0, Math.min(1, 1 - d / radio));
-        t = t * t * (3 - 2 * t);
-        if (Math.abs(t - near[i]) < 0.002) return;
-        near[i] += (t - near[i]) * 0.06;
-        els.forEach((el) => el.style.setProperty('--near', near[i].toFixed(3)));
-      });
-    }
-    requestAnimationFrame(colorLoop);
-  })();
-})();
-
-
-// ---------- Transiciones ligadas al scroll ----------
-(function () {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const clamp = (v) => Math.max(0, Math.min(1, v));
-
-  // Textos y títulos: aparecen según suben en la pantalla
-  const textos = [...document.querySelectorAll(
-    '.about-title, .resume p, .resume dl > div, .perfil-title, .proyectos-title, .skill-card'
-  )];
-  textos.forEach((el) => {
-    el.setAttribute('data-sr', '');
-    el._p = 1;
-    el._dy = el.matches('.skill-card') ? 0 : (parseFloat(getComputedStyle(el).getPropertyValue('--dy')) || 48);
-  });
-
-  const about = document.querySelector('.about');
-  const star = document.querySelector('.star-view');
-  const escena = document.getElementById('escenaEstrella');
-  const card = document.querySelector('.skill-card');
-
-  // Destello blanco de pantalla completa
-  const flash = document.createElement('div');
-  flash.className = 'destello';
-  flash.setAttribute('aria-hidden', 'true');
-  document.body.appendChild(flash);
-
-  function update() {
-    const H = window.innerHeight;
-    const portada = document.getElementById('inicio');
-    if (portada) portada.style.setProperty('--hp', clamp(window.scrollY / H).toFixed(3));
-
-    textos.forEach((el) => {
-      // posición real, descontando el desplazamiento que ya tiene aplicado
-      const top = el.getBoundingClientRect().top - (1 - el._p) * el._dy;
-      el._p = clamp((H * 0.95 - top) / (H * 0.4));
-      el.style.setProperty('--p', el._p.toFixed(3));
-    });
-
-    if (about) {
-      about.style.setProperty('--p', clamp((H - about.getBoundingClientRect().top) / H).toFixed(3));
-    }
-
-        if (star) {
-      const r = star.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height / 2;
-      let p, pCard = null;
-
-      if (escena && window.matchMedia('(min-width: 801px)').matches) {
-        const e = escena.getBoundingClientRect();
-        const s = clamp((H * 0.6 - e.top) / (e.height - H + H * 0.6));   // avance de la escena, de 0 a 1
-        p = clamp(s / 0.55);                // la estrella llega en el primer tramo
-        pCard = clamp((s - 0.45) / 0.4);    // la tarjeta se abre después
-      } else {
-        p = clamp((H * 1.5 - cy) / H);      // celular: como antes
-      }
-
-      const g = Math.sin(Math.PI * p);
-      star.style.setProperty('--p', p.toFixed(3));
-      if (pCard !== null && card) { card._p = pCard; card.style.setProperty('--p', pCard.toFixed(3)); }
-      flash.style.setProperty('--g', (g * g).toFixed(3));
-      flash.style.setProperty('--cx', cx + 'px');
-      flash.style.setProperty('--cy', cy + 'px');
-    }
-
-  }   
-  let esperando = false;
-    
-  const pedir = () => {
-    if (esperando) return;
-    esperando = true;
-    requestAnimationFrame(() => { esperando = false; update(); });
-  };
-
-  window.addEventListener('scroll', pedir, { passive: true });
-  window.addEventListener('resize', pedir);
-  window.addEventListener('load', pedir);
-  document.addEventListener('langchange', pedir);
-
-  update();
-  document.documentElement.classList.add('js');   // solo se oculta algo si todo lo anterior funcionó
-})();
-
-
-// ---------- Intro: sin scroll mientras dura ----------
+// ---------- Intro: desbloquear el scroll al terminar ----------
 history.scrollRestoration = 'manual';
 window.scrollTo({ top: 0, behavior: 'instant' });
-if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  document.documentElement.classList.remove('intro-lock');
-} else {
-  setTimeout(() => document.documentElement.classList.remove('intro-lock'), 5300);
-}
+if (reduceMotion) root.classList.remove('intro-lock');
+else setTimeout(() => root.classList.remove('intro-lock'), 5300);
 
 // ---------- Esfera: presionar para mostrar la información ----------
 const hero = document.getElementById('inicio');
@@ -143,7 +21,7 @@ const orb = document.getElementById('orb');
 orb.addEventListener('click', () => {
   const open = hero.classList.toggle('is-open');
   orb.setAttribute('aria-expanded', open);
-  orb.setAttribute('aria-label', open ? t('orbHide') : t('orbShow'));
+  orb.setAttribute('aria-label', open ? tt('orbHide', 'Ocultar mi información') : tt('orbShow', 'Mostrar mi información'));
 });
 
 // ---------- Índice ----------
@@ -159,9 +37,8 @@ menuPanel.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
 document.addEventListener('click', (e) => { if (!e.target.closest('.menu')) setMenu(false); });
 
-// ---------- Fondo en movimiento: las manchas siguen suavemente al cursor ----------
+// ---------- Portada: las manchas siguen suavemente al cursor ----------
 const field = hero.querySelector('.field');
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (!reduceMotion) {
   let tx = 0, ty = 0, x = 0, y = 0;
@@ -179,29 +56,139 @@ if (!reduceMotion) {
   })();
 }
 
-// ---------- Sobre mí: la esfera de la foto aparece al llegar a la sección ----------
-const about = document.getElementById('sobre-mi');
-if ('IntersectionObserver' in window) {
-  const io = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) { about.classList.add('is-visible'); io.disconnect(); }
-  }, { threshold: 0.15 });
-  io.observe(about);
-} else {
-  about.classList.add('is-visible');
+// ---------- Portada: de lejos rojo, de cerca azul ----------
+if (!reduceMotion) {
+  // Crea la gemela azul de cada mancha si no está en el HTML
+  [1, 2, 3, 4].forEach((k) => {
+    if (field.querySelector('.b' + k + '.azul')) return;
+    const rojo = field.querySelector('.b' + k);
+    if (!rojo) return;
+    const azul = rojo.cloneNode(false);
+    azul.classList.add('azul');
+    rojo.after(azul);
+  });
+
+  const grupos = [1, 2, 3, 4].map((k) => [...field.querySelectorAll('.b' + k)]);
+  const near = grupos.map(() => 0);
+  let px = -1e5, py = -1e5;
+
+  window.addEventListener('pointermove', (e) => { px = e.clientX; py = e.clientY; });
+  document.documentElement.addEventListener('mouseleave', () => { px = -1e5; py = -1e5; });
+
+  (function colorLoop() {
+    const r = hero.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < window.innerHeight) {
+      const radio = Math.hypot(r.width, r.height) * 0.4;
+      grupos.forEach((els, i) => {
+        const b = els[0].getBoundingClientRect();
+        const d = Math.hypot(px - (b.left + b.width / 2), py - (b.top + b.height / 2));
+        let s = Math.max(0, Math.min(1, 1 - d / radio));
+        s = s * s * (3 - 2 * s);
+        if (Math.abs(s - near[i]) < 0.002) return;
+        near[i] += (s - near[i]) * 0.06;
+        els.forEach((el) => el.style.setProperty('--near', near[i].toFixed(3)));
+      });
+    }
+    requestAnimationFrame(colorLoop);
+  })();
 }
 
-// ---------- Mi perfil: acercamiento a cada punto de la estrella ----------
+// ---------- Transiciones ligadas al scroll ----------
+(function () {
+  if (reduceMotion) return;
+
+  const clamp = (v) => Math.max(0, Math.min(1, v));
+
+  const textos = [...document.querySelectorAll(
+    '.about-title, .resume p, .resume dl > div, .perfil-title, .proyectos-title, .skill-card'
+  )];
+  textos.forEach((el) => {
+    el.setAttribute('data-sr', '');
+    el._p = 1;
+    el._dy = el.matches('.skill-card') ? 0 : (parseFloat(getComputedStyle(el).getPropertyValue('--dy')) || 48);
+  });
+
+  const sobreMi = document.querySelector('.about');
+  const star = document.querySelector('.star-view');
+  const escena = document.getElementById('escenaEstrella');
+  const card = document.querySelector('.skill-card');
+
+  // Destello blanco de pantalla completa
+  const flash = document.createElement('div');
+  flash.className = 'destello';
+  flash.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(flash);
+
+  function update() {
+    const H = window.innerHeight;
+
+    hero.style.setProperty('--hp', clamp(window.scrollY / H).toFixed(3));
+
+    textos.forEach((el) => {
+      const top = el.getBoundingClientRect().top - (1 - el._p) * el._dy;
+      el._p = clamp((H * 0.95 - top) / (H * 0.4));
+      el.style.setProperty('--p', el._p.toFixed(3));
+    });
+
+    if (sobreMi) {
+      sobreMi.style.setProperty('--p', clamp((H - sobreMi.getBoundingClientRect().top) / H).toFixed(3));
+    }
+
+    if (star) {
+      const r = star.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      let p, pCard = null;
+
+      if (escena && window.matchMedia('(min-width: 801px)').matches) {
+        const e = escena.getBoundingClientRect();
+        const s = clamp((H * 0.6 - e.top) / (e.height - H + H * 0.6));
+        p = clamp(s / 0.55);
+        pCard = clamp((s - 0.45) / 0.4);
+      } else {
+        p = clamp((H * 1.5 - cy) / H);
+      }
+
+      const g = Math.sin(Math.PI * p);
+      star.style.setProperty('--p', p.toFixed(3));
+      if (pCard !== null && card) {
+        card._p = pCard;
+        card.style.setProperty('--p', pCard.toFixed(3));
+      }
+      flash.style.setProperty('--g', (g * g).toFixed(3));
+      flash.style.setProperty('--cx', cx + 'px');
+      flash.style.setProperty('--cy', cy + 'px');
+    }
+  }
+
+  let esperando = false;
+  const pedir = () => {
+    if (esperando) return;
+    esperando = true;
+    requestAnimationFrame(() => { esperando = false; update(); });
+  };
+
+  window.addEventListener('scroll', pedir, { passive: true });
+  window.addEventListener('resize', pedir);
+  window.addEventListener('load', pedir);
+  document.addEventListener('langchange', pedir);
+
+  update();
+  root.classList.add('js');
+})();
+
+// ---------- Habilidades: tarjeta de la estrella ----------
 const skillTitle = document.getElementById('skillTitle');
 const skillText = document.getElementById('skillText');
 let current = null;
 
 function renderSkill() {
   if (current === null) {
-    skillTitle.textContent = t('skillDefaultTitle');
-    skillText.textContent = t('skillDefaultText');
+    skillTitle.textContent = tt('skillDefaultTitle', 'Economista');
+    skillText.textContent = tt('skillDefaultText', 'Convierto datos en decisiones.');
   } else {
-    skillTitle.textContent = t('skill' + current + 'Name');
-    skillText.textContent = t('skill' + current + 'Text');
+    skillTitle.textContent = tt('skill' + current + 'Name', '');
+    skillText.textContent = tt('skill' + current + 'Text', '');
   }
 }
 
@@ -209,14 +196,11 @@ function selectSkill(i) {
   current = (i === current) ? null : i;
   renderSkill();
   document.querySelectorAll('[data-skill]').forEach((el) => {
-    const on = Number(el.dataset.skill) === current;
-    el.classList.toggle('on', on);
-    if (el.classList.contains('chip')) el.setAttribute('aria-pressed', on);
+    el.classList.toggle('on', Number(el.dataset.skill) === current);
   });
 }
 
 document.addEventListener('langchange', renderSkill);
-
 document.querySelectorAll('[data-skill]').forEach((el) =>
   el.addEventListener('click', () => selectSkill(Number(el.dataset.skill))));
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && current !== null) selectSkill(current); });
@@ -236,8 +220,6 @@ if (!reduceMotion) {
 }
 
 // ---------- Vidrio líquido: refracción real con filtros SVG (solo Chrome y Edge) ----------
-// Técnica: un mapa de desplazamiento generado en canvas + feDisplacementMap aplicado con backdrop-filter.
-// En Safari y Firefox queda el vidrio esmerilado definido en el CSS.
 const isChromium = !!(navigator.userAgentData && navigator.userAgentData.brands.some((b) => /Chromium/.test(b.brand)));
 const SVGNS = 'http://www.w3.org/2000/svg';
 const glassHost = document.createElementNS(SVGNS, 'svg');
@@ -245,74 +227,6 @@ glassHost.setAttribute('width', '0');
 glassHost.setAttribute('height', '0');
 glassHost.style.cssText = 'position:absolute;pointer-events:none';
 document.body.appendChild(glassHost);
-
-
-
-  function build() {
-    const w = el.offsetWidth, h = el.offsetHeight;
-    if (!w || !h) return;
-    const k = res / Math.max(w, h);
-    const cw = Math.max(2, Math.round(w * k)), ch = Math.max(2, Math.round(h * k));
-    const cv = document.createElement('canvas');
-    cv.width = cw; cv.height = ch;
-    const ctx = cv.getContext('2d');
-    const img = ctx.createImageData(cw, ch);
-    const px = img.data, bz = bezel(w, h), e = 1 / k;
-    for (let y = 0; y < ch; y++) {
-      for (let x = 0; x < cw; x++) {
-        const rx = ((x + 0.5) / cw) * w, ry = ((y + 0.5) / ch) * h;
-        const i = (y * cw + x) * 4;
-        px[i] = px[i + 1] = px[i + 2] = 128; px[i + 3] = 255;
-        const d = sdf(rx, ry, w, h);
-        if (d > 0 && d < bz) {
-          const gx = sdf(rx + e, ry, w, h) - sdf(rx - e, ry, w, h);
-          const gy = sdf(rx, ry + e, w, h) - sdf(rx, ry - e, w, h);
-          const len = Math.hypot(gx, gy) || 1;
-          const m = Math.pow(1 - d / bz, 2);
-          px[i] = 128 + 127 * m * (gx / len);
-          px[i + 1] = 128 + 127 * m * (gy / len);
-        }
-      }
-    }
-    ctx.putImageData(img, 0, 0);
-    feImage.setAttribute('href', cv.toDataURL());
-    const f = `url(#${id}) blur(${blur}px) saturate(1.5) brightness(1.1)`;
-    el.style.backdropFilter = f;
-    el.style.webkitBackdropFilter = f;
-  }
-  let raf;
-  new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(build); }).observe(el);
-}
-
-// Distancia al borde (positiva dentro) de la estrella, a partir de su contorno real
-function starSdf() {
-  const p = document.createElementNS(SVGNS, 'path');
-  p.setAttribute('d', document.getElementById('starPath').getAttribute('d'));
-  glassHost.appendChild(p);
-  const n = 240, len = p.getTotalLength(), pts = [];
-  for (let i = 0; i < n; i++) { const q = p.getPointAtLength((len * i) / n); pts.push([q.x, q.y]); }
-  glassHost.removeChild(p);
-  return (x, y, w, h) => {
-    const X = (x / w) * 100, Y = (y / h) * 100;
-    let best = 1e9, inside = false;
-    for (let i = 0, j = n - 1; i < n; j = i++) {
-      const [ax, ay] = pts[j], [bx, by] = pts[i];
-      if ((ay > Y) !== (by > Y) && X < ((bx - ax) * (Y - ay)) / (by - ay) + ax) inside = !inside;
-      const dx = bx - ax, dy = by - ay;
-      const t = Math.max(0, Math.min(1, ((X - ax) * dx + (Y - ay) * dy) / (dx * dx + dy * dy || 1)));
-      const ex = ax + t * dx - X, ey = ay + t * dy - Y;
-      const dd = ex * ex + ey * ey;
-      if (dd < best) best = dd;
-    }
-    return (inside ? 1 : -1) * Math.sqrt(best) * (w / 100);
-  };
-}
-
-// Distancia al borde (positiva dentro) de un rectángulo con esquinas redondeadas
-const roundedSdf = (r) => (x, y, w, h) => {
-  const qx = Math.abs(x - w / 2) - (w / 2 - r), qy = Math.abs(y - h / 2) - (h / 2 - r);
-  return -(Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) + Math.min(Math.max(qx, qy), 0) - r);
-};
 
 function liquidGlass(el, { sdf, bezel, scale, res = 160, blur = 1.5, sat = 1.5, bri = 1.1 }) {
   if (!isChromium) return;
@@ -363,6 +277,36 @@ function liquidGlass(el, { sdf, bezel, scale, res = 160, blur = 1.5, sat = 1.5, 
   new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(build); }).observe(el);
 }
 
+// Distancia al borde (positiva dentro) de la estrella, a partir de su contorno real
+function starSdf() {
+  const p = document.createElementNS(SVGNS, 'path');
+  p.setAttribute('d', document.getElementById('starPath').getAttribute('d'));
+  glassHost.appendChild(p);
+  const n = 240, len = p.getTotalLength(), pts = [];
+  for (let i = 0; i < n; i++) { const q = p.getPointAtLength((len * i) / n); pts.push([q.x, q.y]); }
+  glassHost.removeChild(p);
+  return (x, y, w, h) => {
+    const X = (x / w) * 100, Y = (y / h) * 100;
+    let best = 1e9, inside = false;
+    for (let i = 0, j = n - 1; i < n; j = i++) {
+      const [ax, ay] = pts[j], [bx, by] = pts[i];
+      if ((ay > Y) !== (by > Y) && X < ((bx - ax) * (Y - ay)) / (by - ay) + ax) inside = !inside;
+      const dx = bx - ax, dy = by - ay;
+      const u = Math.max(0, Math.min(1, ((X - ax) * dx + (Y - ay) * dy) / (dx * dx + dy * dy || 1)));
+      const ex = ax + u * dx - X, ey = ay + u * dy - Y;
+      const dd = ex * ex + ey * ey;
+      if (dd < best) best = dd;
+    }
+    return (inside ? 1 : -1) * Math.sqrt(best) * (w / 100);
+  };
+}
+
+// Distancia al borde (positiva dentro) de un rectángulo con esquinas redondeadas
+const roundedSdf = (r) => (x, y, w, h) => {
+  const qx = Math.abs(x - w / 2) - (w / 2 - r), qy = Math.abs(y - h / 2) - (h / 2 - r);
+  return -(Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) + Math.min(Math.max(qx, qy), 0) - r);
+};
+
 // ---------- Proyectos: cada recuadro aparece al deslizar ----------
 const tarjetas = document.querySelectorAll('.proyecto');
 if ('IntersectionObserver' in window) {
@@ -372,17 +316,15 @@ if ('IntersectionObserver' in window) {
       else if (en.intersectionRatio === 0) en.target.classList.remove('visible');
     });
   }, { threshold: [0, 0.35] });
-  tarjetas.forEach((t) => ioP.observe(t));
+  tarjetas.forEach((c) => ioP.observe(c));
 } else {
-  tarjetas.forEach((t) => t.classList.add('visible'));
+  tarjetas.forEach((c) => c.classList.add('visible'));
 }
 
-// ---------- Proyectos: vidrio con refracción ----------
-document.querySelectorAll('.proyecto').forEach((el) =>
+// ---------- Aplicar el vidrio ----------
+tarjetas.forEach((el) =>
   liquidGlass(el, { sdf: roundedSdf(32), bezel: () => 42, scale: 95, res: 220, blur: 10, sat: 0.5, bri: 1.1 }));
 
-// ---------- Vidrio de la estrella y de la tarjeta ----------
 liquidGlass(starGlass, { sdf: starSdf(), bezel: (w) => w * 0.14, scale: 120, res: 160, blur: 1, sat: 3, bri: 1 });
 liquidGlass(document.getElementById('skillCard'), { sdf: roundedSdf(32), bezel: () => 22, scale: 45, res: 220, blur: 3, sat: 1.3, bri: 1 });
-
 
