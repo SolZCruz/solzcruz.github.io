@@ -803,7 +803,7 @@ button {
 .proyectos-inner { position: relative; width: 100%; max-width: 72rem; margin: 0 auto; }
 
 .proyectos-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2vw, 1.5rem);
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.5rem);
 }
 
 /* Recuadro de vidrio transparente */
@@ -1296,4 +1296,8 @@ html.intro-lock body { touch-action: none; }
 @keyframes pin-pulso {
   from { transform: scale(1);   opacity: 1; }
   to   { transform: scale(3.2); opacity: 0; }
+}
+
+@media (max-width: 900px) and (min-width: 521px) {
+  .proyecto:last-child { grid-column: 1 / -1; }
 }
