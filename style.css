@@ -1224,6 +1224,7 @@ html.intro-lock body { touch-action: none; }
   font-family: var(--nombre); font-weight: 700;
   line-height: .95; letter-spacing: -.04em;
   font-size: clamp(2rem, 3.4vw, 3rem);
+  translate: 0 -1rem;
 }
 .contacto dl { display: grid; gap: .9rem; margin: 0; }
 .contacto dt {
