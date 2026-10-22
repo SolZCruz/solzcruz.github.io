@@ -27,6 +27,7 @@
       projectsTitle: 'Proyectos',
       cv: 'Descargar CV',
       contactTitle: 'Contacto', emailLabel: 'Correo', phoneLabel: 'Teléfono', waBtn: 'Escribir por WhatsApp',
+      locTitle: 'Ubicación',
       
     },
     en: {
@@ -56,6 +57,7 @@
       projectsTitle: 'Projects',
       cv: 'Download CV',
       contactTitle: 'Contact', emailLabel: 'Email', phoneLabel: 'Phone', waBtn: 'Chat on WhatsApp',
+      locTitle: 'Based in',
     },
   };
 
