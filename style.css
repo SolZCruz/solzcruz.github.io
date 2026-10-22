@@ -834,9 +834,11 @@ button {
   opacity: 0;
   transition: translate .5s cubic-bezier(.2, .8, .2, 1), background .4s, box-shadow .4s;
 }
+
 .proyectos-title {
-  font-family: var(--display); font-weight: 700; line-height: .95; letter-spacing: -.04em;
-  font-size: clamp(2.8rem, 9vw, 7rem);
+  font-family: var(--nombre); font-weight: 700;
+  line-height: .95; letter-spacing: -.04em;
+  font-size: clamp(2rem, 3.4vw, 3rem);
 }
 
 
@@ -844,7 +846,8 @@ button {
   margin: 0; font-family: var(--display); font-weight: 800; letter-spacing: -.03em; line-height: 1;
   font-size: clamp(2rem, 4vw, 3.2rem);
   transition: scale .5s cubic-bezier(.2, .8, .2, 1);
-  font-family: var(--display); font-weight: 700; line-height: .95; letter-spacing: -.04em;
+  font-family: var(--nombre); font-weight: 700;
+  line-height: .95; letter-spacing: -.04em;
 }
 
 .proyecto:hover, .proyecto:focus-visible {
