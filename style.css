@@ -836,14 +836,16 @@ button {
 }
 
 .proyectos-title {
+  margin:0;
+  font-size: clamp(2rem, 3.4vw, 3rem);
   font-family: var(--nombre); font-weight: 700;
   line-height: .95; letter-spacing: -.04em;
-  font-size: clamp(2rem, 3.4vw, 3rem);
+  
 }
 
 
 .proyecto h3 {
-  margin: 0; font-family: var(--display); font-weight: 800; letter-spacing: -.03em; line-height: 1;
+  margin: 0; 
   font-size: clamp(2rem, 4vw, 3.2rem);
   transition: scale .5s cubic-bezier(.2, .8, .2, 1);
   font-family: var(--nombre); font-weight: 700;
