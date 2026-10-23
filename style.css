@@ -835,7 +835,7 @@ button {
   transition: translate .5s cubic-bezier(.2, .8, .2, 1), background .4s, box-shadow .4s;
 }
 
-.proyectos-title {
+.proyectos .proyectos-title {
   margin:0;
   font-size: clamp(2rem, 3.4vw, 3rem);
   font-family: var(--nombre); font-weight: 700;
