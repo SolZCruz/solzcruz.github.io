@@ -814,7 +814,7 @@ button {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.5rem);
 }
 
-.proyectos-title {
+.proyectos-title h2 {
   margin:0;
   font-size: clamp(2rem, 3.4vw, 3rem);
   font-family: var(--nombre); font-weight: 700;
