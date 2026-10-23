@@ -819,6 +819,8 @@ button {
   font-size: clamp(2rem, 3.4vw, 3rem);
   font-family: var(--nombre); font-weight: 700;
   line-height: .95; letter-spacing: -.04em;
+  margin-bottom: 3rem;
+  translate: 0 -1rem;
   
 }
 
